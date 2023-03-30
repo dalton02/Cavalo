@@ -20,9 +20,6 @@ public class CadastroTela {
     private JPasswordField txtInsiraSuaSenha;
     private JPasswordField txtRepitaSuaSenha;
     private JLabel lblFacaSeuCadastro;
-    private JLabel lblUsuario;
-    private JLabel lblSenha;
-    private JLabel lblRepitaASenha;
     private JLabel btnProximo;
     private JLabel labelBackground;
     private JLabel lblRetorna;
@@ -37,7 +34,6 @@ public class CadastroTela {
     private JTextField txtBanco;
     private JTextField txtAltura;
     private JTextField txtSaldo;
-    private JLabel lblInsiraSuasInformaes;
     private JTextField txtIdade;
     private JTextField txtPeso;
     private  JRadioButton radioM;
@@ -330,19 +326,19 @@ public class CadastroTela {
      
     private void inicializarLayer1() {
     	
-    	lblSenha = new JLabel("Senha:");
+    	JLabel lblSenha = new JLabel("Senha:");
         lblSenha.setForeground(Color.WHITE);
         lblSenha.setFont(new Font("Noto Mono", Font.BOLD, 18));
         lblSenha.setBounds(132, 97, 62, 27);
         layer1.add(lblSenha);
 
-        lblRepitaASenha = new JLabel("Repita a senha:");
+        JLabel lblRepitaASenha = new JLabel("Repita a senha:");
         lblRepitaASenha.setForeground(Color.WHITE);
         lblRepitaASenha.setFont(new Font("Noto Mono", Font.BOLD, 18));
         lblRepitaASenha.setBounds(58, 140, 136, 24);
         layer1.add(lblRepitaASenha);
 
-        lblUsuario = new JLabel("Usuário:");
+        JLabel lblUsuario = new JLabel("Usuário:");
         lblUsuario.setForeground(Color.WHITE);
         lblUsuario.setFont(new Font("Noto Mono", Font.BOLD, 18));
         lblUsuario.setBounds(120, 56, 74, 27);
@@ -377,7 +373,7 @@ public class CadastroTela {
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
         
         
-        JTextField usernameField = new JTextField();
+        usernameField = new JTextField();
         usernameField.setBounds(209, 58, 321, 24);
         usernameField.setFont(new Font("Leelawadee UI", Font.BOLD | Font.ITALIC, 16));
         usernameField.setBackground(new Color(200, 255, 83,0));
@@ -438,10 +434,10 @@ public class CadastroTela {
          txtSaldo.setOpaque(false);
          layer2.add(txtSaldo);
          
-         lblInsiraSuasInformaes = new JLabel("Insira suas informações bancarias agora");
+         JLabel lblInsiraSuasInformaes = new JLabel("Insira suas informações bancarias");
          lblInsiraSuasInformaes.setForeground(Color.WHITE);
          lblInsiraSuasInformaes.setFont(new Font("Noto Mono", Font.BOLD | Font.ITALIC, 15));
-         lblInsiraSuasInformaes.setBounds(108, 26, 379, 35);
+         lblInsiraSuasInformaes.setBounds(160, 26, 379, 35);
          layer2.add(lblInsiraSuasInformaes);
          
          ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/field.png"));
