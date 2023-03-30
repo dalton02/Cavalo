@@ -30,12 +30,18 @@ public class CadastroTela {
     private JPanel layer1;
     private JPanel layer2;
     private JPanel layer3;
+    private JPanel layer4;
     private JRadioButton radioFrango;
     private JRadioButton radioMaromba;
     private JRadioButton radioGiga;
     private JTextField txtBanco;
+    private JTextField txtAltura;
     private JTextField txtSaldo;
     private JLabel lblInsiraSuasInformaes;
+    private JTextField txtIdade;
+    private JTextField txtPeso;
+    private  JRadioButton radioM;
+    private  JRadioButton radioF;
     public CadastroTela() {
     	initialize();
         frame.setLocationRelativeTo(null);
@@ -43,8 +49,6 @@ public class CadastroTela {
     }
     
     private void acoes() {
-    	
-
 	    btnProximo.addMouseListener(new MouseAdapter() {
 	    	@Override
 	    	public void mouseClicked(MouseEvent e) {
@@ -65,7 +69,13 @@ public class CadastroTela {
 		    			layer2.setVisible(false);
 		    			layer3.setVisible(true);
 		    		}
-		    		else if(layer3.isVisible()) 
+		    		else if(layer3.isVisible()) {
+
+		    			layer3.setVisible(false);
+		    			layer4.setVisible(true);
+		    			
+		    		}
+		    		else
 		    			frame.dispose();
 	    		}
 	    			
@@ -108,9 +118,25 @@ public class CadastroTela {
         			radioFrango.setSelected(false);
         	}
         });
+    
+        radioM.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent e) {
+
+    			radioM.setSelected(true);
+    			radioF.setSelected(false);
+         	}
+         });
+        radioF.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent e) {
+
+    			radioF.setSelected(true);
+    			radioM.setSelected(false);
+         	}
+         });    
     }
     
     private void inicializarLayers() {
+    	
     	layer1 = new JPanel();
         layer1.setBackground(new Color(0, 0, 0, 0));
         layer1.setBounds(103, 229, 562, 239);
@@ -119,7 +145,6 @@ public class CadastroTela {
         layer1.setLocation(900/2-562/2, 229);
         frame.getContentPane().add(layer1);
         
-
         layer2 = new JPanel();
         layer2.setLayout(null);
         layer2.setBackground(new Color(0, 0, 0, 0));
@@ -127,8 +152,7 @@ public class CadastroTela {
         layer2.setOpaque(false);
         layer2.setVisible(false);
         frame.getContentPane().add(layer2);
-        
-        
+         
         layer3 = new JPanel();
         layer3.setBounds(63, 222, 772, 247);
         layer3.setBackground(new Color(0, 0, 0, 0));
@@ -136,8 +160,116 @@ public class CadastroTela {
         layer3.setOpaque(false);
         layer3.setVisible(false);
         frame.getContentPane().add(layer3);
+
+        layer4 = new JPanel();
+        layer4.setBounds(63, 222, 772, 247);
+        layer4.setBackground(new Color(0, 0, 0, 0));
+        layer4.setLayout(null);
+        layer4.setOpaque(false);
+        layer4.setVisible(false);
+        frame.getContentPane().add(layer4);
         
-    	
+    
+    }
+    
+    private void inicializarLayer4() {
+    	 JLabel lblAltura = new JLabel("Altura:");
+         lblAltura.setForeground(Color.WHITE);
+         lblAltura.setFont(new Font("Noto Mono", Font.BOLD, 18));
+         lblAltura.setBounds(96, 72, 69, 27);
+         layer4.add(lblAltura);
+         
+         JLabel lblSexo = new JLabel("Sexo:");
+         lblSexo.setForeground(Color.WHITE);
+         lblSexo.setFont(new Font("Noto Mono", Font.BOLD, 18));
+         lblSexo.setBounds(96, 127, 69, 27);
+         layer4.add(lblSexo);
+         
+         txtAltura = new JTextField();
+         txtAltura.setToolTipText("Insira sua altura");
+         txtAltura.setForeground(Color.BLACK);
+         txtAltura.setFont(new Font("Leelawadee UI", Font.BOLD | Font.ITALIC, 16));
+         txtAltura.setBackground(new Color(200, 255, 83,0));
+         txtAltura.setBounds(175, 72, 137, 24);
+         txtAltura.setOpaque(false);
+         txtAltura.setBorder(null);
+         layer4.add(txtAltura);
+         
+         //Field Images
+         ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/field.png"));
+         Image img = fieldImage.getImage();
+         Image imgRedimensionada = img.getScaledInstance(txtAltura.getBounds().width,24, Image.SCALE_SMOOTH);
+         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
+         
+         JLabel textBack = new JLabel(logoRedimensionada);
+         textBack.setBounds(166, 72, txtAltura.getBounds().width, 24);
+         textBack.setFocusable(false);
+         layer4.add(textBack);
+         
+         radioM = new JRadioButton("Masculino");
+       
+         radioM.setFont(new Font("Noto Mono", Font.BOLD, 18));
+         radioM.setForeground(Color.WHITE);
+         radioM.setBounds(150, 129, 113, 23);
+         radioM.setBackground(new Color(0,0,0,0));
+         radioM.setOpaque(false);
+         radioM.setBorderPainted(false);
+         radioM.setFocusable(false);
+         layer4.add(radioM);
+
+         radioF = new JRadioButton("Feminino");
+         radioF.setFont(new Font("Noto Mono", Font.BOLD, 18));
+         radioF.setForeground(Color.WHITE);
+         radioF.setBounds(150, 161, 108, 23);
+         radioF.setBackground(new Color(0,0,0,0));
+         radioF.setOpaque(false);
+         radioF.setBorderPainted(false);
+         radioF.setFocusable(false);
+         layer4.add(radioF);
+         
+         JLabel lblPeso = new JLabel("Peso:");
+         lblPeso.setForeground(Color.WHITE);
+         lblPeso.setFont(new Font("Dialog", Font.BOLD, 18));
+         lblPeso.setBounds(480, 136, 69, 27);
+         layer4.add(lblPeso);
+         
+         JLabel lblIdade = new JLabel("Idade:");
+         lblIdade.setForeground(Color.WHITE);
+         lblIdade.setFont(new Font("Dialog", Font.BOLD, 18));
+         lblIdade.setBounds(480, 72, 69, 27);
+         layer4.add(lblIdade);
+         
+         txtIdade = new JTextField();
+         txtIdade.setToolTipText("Insira sua altura");
+         txtIdade.setOpaque(false);
+         txtIdade.setForeground(Color.BLACK);
+         txtIdade.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 16));
+         txtIdade.setBorder(null);
+         txtIdade.setBackground(new Color(200, 255, 83, 0));
+         txtIdade.setBounds(551, 75, 137, 24);
+         layer4.add(txtIdade);
+         
+         JLabel textBack2 = new JLabel(logoRedimensionada);
+         textBack2.setFocusable(false);
+         textBack2.setBounds(542, 75, 137, 24);
+         layer4.add(textBack2);
+         
+         txtPeso = new JTextField();
+         txtPeso.setToolTipText("Insira sua altura");
+         txtPeso.setOpaque(false);
+         txtPeso.setForeground(Color.BLACK);
+         txtPeso.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 16));
+         txtPeso.setBorder(null);
+         txtPeso.setBackground(new Color(200, 255, 83, 0));
+         txtPeso.setBounds(551, 139, 137, 24);
+         layer4.add(txtPeso);
+         
+         JLabel textBack3 = new JLabel(logoRedimensionada);
+         textBack3.setFocusable(false);
+         textBack3.setBounds(542, 139, 137, 24);
+         layer4.add(textBack3);
+         
+         
     }
     
     private void inicializarLayer3() {
@@ -195,26 +327,25 @@ public class CadastroTela {
 
     	
     }
-    
-    
+     
     private void inicializarLayer1() {
     	
     	lblSenha = new JLabel("Senha:");
         lblSenha.setForeground(Color.WHITE);
         lblSenha.setFont(new Font("Noto Mono", Font.BOLD, 18));
-        lblSenha.setBounds(125, 97, 69, 27);
+        lblSenha.setBounds(132, 97, 62, 27);
         layer1.add(lblSenha);
 
         lblRepitaASenha = new JLabel("Repita a senha:");
         lblRepitaASenha.setForeground(Color.WHITE);
         lblRepitaASenha.setFont(new Font("Noto Mono", Font.BOLD, 18));
-        lblRepitaASenha.setBounds(18, 142, 176, 24);
+        lblRepitaASenha.setBounds(58, 140, 136, 24);
         layer1.add(lblRepitaASenha);
 
         lblUsuario = new JLabel("Usuário:");
         lblUsuario.setForeground(Color.WHITE);
         lblUsuario.setFont(new Font("Noto Mono", Font.BOLD, 18));
-        lblUsuario.setBounds(101, 59, 93, 27);
+        lblUsuario.setBounds(120, 56, 74, 27);
         layer1.add(lblUsuario);
 
         txtRepitaSuaSenha = new JPasswordField();
@@ -270,8 +401,6 @@ public class CadastroTela {
         textBack3.setFocusable(false);
         layer1.add(textBack3);
         
-
-    	
     }
     
     private void inicializarLayer2() {
@@ -331,6 +460,7 @@ public class CadastroTela {
          layer2.add(textField2);
          
     }
+   
     private void initialize() {
         frame = new JFrame();
         frame.setResizable(false);
@@ -370,7 +500,7 @@ public class CadastroTela {
         inicializarLayer1();
         inicializarLayer2();
         inicializarLayer3();
-        
+        inicializarLayer4();
        
         ImageIcon bgImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/BackGround.png"));
         labelBackground = new JLabel(bgImage);
