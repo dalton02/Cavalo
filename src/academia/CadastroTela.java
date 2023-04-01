@@ -8,7 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -38,10 +41,43 @@ public class CadastroTela {
     private JTextField txtPeso;
     private  JRadioButton radioM;
     private  JRadioButton radioF;
+    private int tipoPlano;
+    private char sexo;
+    private JTextField txtPercentual;
     public CadastroTela() {
     	initialize();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+    
+    private void salvarUsuario(){
+    	
+
+		File arquivo = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
+
+		try{
+	    
+			try (FileWriter escritor = new FileWriter(arquivo,true)) {
+	            escritor.write(usernameField.getText()+"\n");
+	            escritor.write(txtInsiraSuaSenha.getText()+"\n");
+	            escritor.write(tipoPlano+"\n");
+	            escritor.write(0+"\n"); //Seu pacote
+	            escritor.write(txtBanco.getText()+"\n");
+	            escritor.write(txtSaldo.getText()+"\n");
+	            escritor.write(txtAltura.getText()+"\n");
+	            escritor.write(txtIdade.getText()+"\n");
+	            escritor.write(sexo+"\n");
+	            escritor.write(txtPeso.getText()+"\n");
+	            escritor.write(txtPercentual.getText()+"\n");
+	            escritor.close();
+	        }	
+	
+		}
+		
+		catch(IOException e) {
+			
+		}
+        
     }
     
     private void acoes() {
@@ -51,11 +87,18 @@ public class CadastroTela {
 	    		String[] options = {"Sim","Ainda não"};
 	    		int x = JOptionPane.showOptionDialog(null, " \"Tem certeza?","Confirmação", JOptionPane.DEFAULT_OPTION, 0, null, options, options[0]);
 	    		if(x==0) {
+	    			
 		    		if(layer1.isVisible()) {
 		    			
-		    			if(txtInsiraSuaSenha.getText().equals(txtRepitaSuaSenha.getText())) {
+		    			if(txtInsiraSuaSenha.getText().equals(txtRepitaSuaSenha.getText()) ) {
+		    			File arquivoExiste = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
+		    			   if(!arquivoExiste.exists()) {
 		    				layer1.setVisible(false);
 			    			layer2.setVisible(true);	
+		    			   }
+		    			   else
+		    				JOptionPane.showMessageDialog(null, "Usuario ja existe!!");   
+		    			
 		    			}
 		    			else
 		    				JOptionPane.showMessageDialog(null, "Senhas não são identicas");
@@ -71,8 +114,26 @@ public class CadastroTela {
 		    			layer4.setVisible(true);
 		    			
 		    		}
-		    		else
+		    		else {
+		    			
+		    			if(radioFrango.isSelected())
+		    				tipoPlano=0;
+		    			else if(radioMaromba.isSelected())
+		    				tipoPlano=1;
+		    			else if(radioGiga.isSelected())
+		    				tipoPlano=2;
+		    			
+
+		    			if(radioM.isSelected())
+		    				sexo = 'M';
+		    			else if(radioF.isSelected())
+		    				sexo = 'F';
+		    			
+		    			salvarUsuario();
 		    			frame.dispose();
+	    		
+		    		}
+		    		
 	    		}
 	    			
 	    	}
@@ -276,6 +337,28 @@ public class CadastroTela {
          textBack3.setFocusable(false);
          textBack3.setBounds(542, 139, 137, 24);
          layer4.add(textBack3);
+         
+         JLabel lblPercentualGordura = new JLabel("Percentual Gordura:");
+         lblPercentualGordura.setHorizontalAlignment(SwingConstants.RIGHT);
+         lblPercentualGordura.setForeground(Color.WHITE);
+         lblPercentualGordura.setFont(new Font("Dialog", Font.BOLD, 18));
+         lblPercentualGordura.setBounds(336, 189, 197, 27);
+         layer4.add(lblPercentualGordura);
+         
+         txtPercentual = new JTextField();
+         txtPercentual.setToolTipText("Insira sua altura");
+         txtPercentual.setOpaque(false);
+         txtPercentual.setForeground(Color.BLACK);
+         txtPercentual.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 16));
+         txtPercentual.setBorder(null);
+         txtPercentual.setBackground(new Color(200, 255, 83, 0));
+         txtPercentual.setBounds(551, 195, 137, 24);
+         layer4.add(txtPercentual);
+         
+         JLabel textBack4 = new JLabel(logoRedimensionada);
+         textBack4.setFocusable(false);
+         textBack4.setBounds(542, 192, 137, 24);
+         layer4.add(textBack4);
          
          
     }

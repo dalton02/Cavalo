@@ -8,7 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -63,6 +66,7 @@ public class LoginTela {
         layer1.add(lblUsuario);
 
         txtInsiraSuaSenha = new JPasswordField();
+        txtInsiraSuaSenha.setEchoChar('*');
         txtInsiraSuaSenha.setToolTipText("Insira sua senha");
         txtInsiraSuaSenha.setBackground(new Color(200, 255, 83,0));
         txtInsiraSuaSenha.setBounds(209, yCentro, 321, 24);
@@ -79,7 +83,8 @@ public class LoginTela {
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
         
         
-        JTextField usernameField = new JTextField();
+        usernameField = new JTextField();
+        usernameField.setText("Muzzy");
         usernameField.setBounds(209, yCentro-50, 321, 24);
         usernameField.setFont(new Font("Leelawadee UI", Font.BOLD | Font.ITALIC, 16));
         usernameField.setBackground(new Color(200, 255, 83,0));
@@ -99,24 +104,55 @@ public class LoginTela {
         textBack2.setFocusable(false);
         layer1.add(textBack2);
         
-
-    	
+	
     }
     
     private void logar() {
+    	
     	btnProximo.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseEntered(MouseEvent e) {
     			btnProximo.setForeground(Color.DARK_GRAY);
         	}
 	    	public void mouseExited(MouseEvent e) {
-
 		    		btnProximo.setForeground(Color.WHITE);		        		
         	}
 	    	public void mouseClicked(MouseEvent e) {
-	    		GerenciarAcademia c1 = new GerenciarAcademia();
-	    		c1.setVisible(true);
-	    		frame.dispose();
+	    		
+	    		File arquivo = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
+	             
+	    		if(arquivo.exists()) {
+	    			boolean liberado=false;
+	    			FileReader fileReader;
+					try {
+					fileReader = new FileReader(arquivo);
+					BufferedReader bufferedReader = new BufferedReader(fileReader);
+		            String linha;
+		            int i=0;
+		            while ((linha = bufferedReader.readLine()) != null) {
+		               if(i==1 && linha.equals(txtInsiraSuaSenha.getText())) {
+		           	   liberado=true;
+		               }
+		               i++;
+		             }
+		             fileReader.close();
+		             bufferedReader.close();
+					}
+					catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					if(liberado) {
+			    		GerenciarAcademia c1 = new GerenciarAcademia(arquivo);
+			    		c1.setVisible(true);
+			    		frame.dispose();		
+					}		
+					else
+						JOptionPane.showMessageDialog(null,"Senha errada");
+	    		}
+	    		else 
+	    			JOptionPane.showMessageDialog(null, "Usuario não existe");
 	    	}
         });
         
