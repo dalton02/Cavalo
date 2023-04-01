@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,6 +29,32 @@ public class LoginTela {
     private JLabel labelBackground;
     private JLabel lblRetorna;
     private JPanel layer1;
+    private Font f1,f2,f3;
+    
+    private void inicializarFontes() {
+    	
+    	File fontFile = new File(System.getProperty("user.dir")+"/src/Fontes/arvo.ttf");
+		File fontFile2 = new File(System.getProperty("user.dir")+"/src/Fontes/arvoI.ttf");
+		
+		try {
+			f1 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
+			f2 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile2)).deriveFont(Font.PLAIN, 18);
+			f3 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 14);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+
+    }
     
     
     public LoginTela() {
@@ -54,14 +81,14 @@ public class LoginTela {
     	lblSenha = new JLabel("Senha:");
     	lblSenha.setHorizontalAlignment(SwingConstants.RIGHT);
         lblSenha.setForeground(Color.WHITE);
-        lblSenha.setFont(new Font("Noto Mono", Font.BOLD, 18));
+        lblSenha.setFont(f1);
         lblSenha.setBounds(101, 119, 93, 27);
         layer1.add(lblSenha);
 
         lblUsuario = new JLabel("Usuário:");
         lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
         lblUsuario.setForeground(Color.WHITE);
-        lblUsuario.setFont(new Font("Noto Mono", Font.BOLD, 18));
+        lblUsuario.setFont(f1);
         lblUsuario.setBounds(77, 69, 117, 27);
         layer1.add(lblUsuario);
 
@@ -73,8 +100,7 @@ public class LoginTela {
         txtInsiraSuaSenha.setForeground(Color.BLACK);
         txtInsiraSuaSenha.setOpaque(false);
         txtInsiraSuaSenha.setBorder(null);
-       
-        txtInsiraSuaSenha.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 16));
+        txtInsiraSuaSenha.setFont(f2);
         layer1.add(txtInsiraSuaSenha);
         
         ImageIcon fieldImage = new ImageIcon(LoginTela.class.getResource("/Imagens/field.png"));
@@ -86,7 +112,7 @@ public class LoginTela {
         usernameField = new JTextField();
         usernameField.setText("Muzzy");
         usernameField.setBounds(209, yCentro-50, 321, 24);
-        usernameField.setFont(new Font("Leelawadee UI", Font.BOLD | Font.ITALIC, 16));
+        usernameField.setFont(f2);
         usernameField.setBackground(new Color(200, 255, 83,0));
         usernameField.setOpaque(false);
         usernameField.setForeground(Color.BLACK);
@@ -201,7 +227,7 @@ public class LoginTela {
         btnProximo.setBounds(frame.getBounds().width/2 - 103/2, 479, 103, 37);
         frame.getContentPane().add(btnProximo);
 
-                
+        inicializarFontes();
         inicializarLayers();
         inicializarLayer1();
        

@@ -10,11 +10,14 @@ import classes.*;
 import java.awt.Color;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -74,11 +77,37 @@ public class GerenciarAcademia extends JFrame {
 	private JLabel lblMassaMagraAtual;
 	private JLabel lblTmbAtual;
 	private JLabel lblMassaGordaAtual;
+	private Font f1;
+	private Font f2;
+	private Font f3;
 	
 	public GerenciarAcademia(File arquivo){
 		userFile = arquivo;
 		inicializarUsuario();
 		init();
+	}
+	
+	private void inicializarFontes() {
+		File fontFile = new File(System.getProperty("user.dir")+"/src/Fontes/arvo.ttf");
+		File fontFile2 = new File(System.getProperty("user.dir")+"/src/Fontes/arvoB.ttf");
+
+		try {
+			f1 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
+			f2 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile2)).deriveFont(Font.PLAIN, 18);
+			f3 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile2)).deriveFont(Font.PLAIN, 26);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 	
 	private void inicializarUsuario(){
@@ -220,8 +249,10 @@ public class GerenciarAcademia extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				String []options = {"Plano Frango","Plano Maromba","Plano Cavalo"};
 				int escolha = JOptionPane.showOptionDialog(null, "Escolha seu novo plano","Escolha",JOptionPane.CLOSED_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				modificarLinha(2, String.valueOf(escolha));
-				atualizarTela();
+				if(escolha>=0) {
+					modificarLinha(2, String.valueOf(escolha));
+					atualizarTela();	
+				}
 				
 			}	
 		});
@@ -240,8 +271,10 @@ public class GerenciarAcademia extends JFrame {
 
 				String []options = {"Nenhum :(","TREM-BALA","FREAKY","SUICIDA"};
 				int escolha = JOptionPane.showOptionDialog(null, "Escolha seu novo pacote","Escolha",JOptionPane.CLOSED_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				if(escolha>=0) {
 				modificarLinha(3, String.valueOf(escolha));
 				atualizarTela();
+				}
 			}
 		});
 	}
@@ -263,6 +296,7 @@ public class GerenciarAcademia extends JFrame {
 				double saldoNovo = Double.valueOf(JOptionPane.showInputDialog(null,"Informe seu novo saldo: "));
 				modificarLinha(5, String.valueOf(saldoNovo));
 				atualizarTela();
+			
 			}
 		});
 		btnPagarMensalidade.addMouseListener(new MouseAdapter() {
@@ -351,7 +385,7 @@ public class GerenciarAcademia extends JFrame {
         lblPlano = new JLabel("Seu Plano");
         lblPlano.setForeground(Color.DARK_GRAY);
         lblPlano.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPlano.setFont(new Font("Source Code Pro Semibold", Font.BOLD, 26));
+        lblPlano.setFont(f3);
         lblPlano.setBounds(0, 120, 245, 40);
         
         panelMenu.add(lblPlano);
@@ -359,21 +393,21 @@ public class GerenciarAcademia extends JFrame {
         lblProgresso = new JLabel("Progresso");
         lblProgresso.setForeground(Color.DARK_GRAY);
         lblProgresso.setHorizontalAlignment(SwingConstants.CENTER);
-        lblProgresso.setFont(new Font("Source Code Pro Semibold", Font.BOLD, 26));
+        lblProgresso.setFont(f3);
         lblProgresso.setBounds(0, 220, 245, 40);
         panelMenu.add(lblProgresso);
         
         lblSobre = new JLabel("Sobre");
         lblSobre.setForeground(Color.DARK_GRAY);
         lblSobre.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSobre.setFont(new Font("Source Code Pro Semibold", Font.BOLD, 26));
+        lblSobre.setFont(f3);
         lblSobre.setBounds(0, 420, 245, 40);
         panelMenu.add(lblSobre);
         
         lblDespesas = new JLabel("Despesas");
         lblDespesas.setForeground(Color.DARK_GRAY);
         lblDespesas.setHorizontalAlignment(SwingConstants.CENTER);
-        lblDespesas.setFont(new Font("Source Code Pro Semibold", Font.BOLD, 26));
+        lblDespesas.setFont(f3);
         lblDespesas.setBounds(0, 320, 245, 40);
         panelMenu.add(lblDespesas);
         acoesMenu();
@@ -392,7 +426,7 @@ public class GerenciarAcademia extends JFrame {
 	       
 	       JLabel lblTitle1 = new JLabel("Quando você começou:");
 	       lblTitle1.setForeground(Color.WHITE);
-	       lblTitle1.setFont(new Font("DejaVu Sans", Font.BOLD, 18));
+	       lblTitle1.setFont(f2);
 	       lblTitle1.setBounds(40, 11, 235, 36);
 	       panelProgresso.add(lblTitle1);
 	       
@@ -401,22 +435,22 @@ public class GerenciarAcademia extends JFrame {
 	       lblGordura.setAlignmentX(Component.RIGHT_ALIGNMENT);
 	       lblGordura.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblGordura.setForeground(Color.WHITE);
-	       lblGordura.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
-	       lblGordura.setBounds(0, 12, 159, 19);
+	       lblGordura.setFont(f1);
+	       lblGordura.setBounds(0, 12, 170, 19);
 	       panelLblStatusAnt.add(lblGordura);
 	       
 	       JLabel lblPeso = new JLabel("Peso:");
-	       lblPeso.setHorizontalAlignment(SwingConstants.LEFT);
+	       lblPeso.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblPeso.setForeground(Color.WHITE);
-	       lblPeso.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblPeso.setFont(f1);
 	       lblPeso.setAlignmentX(1.0f);
-	       lblPeso.setBounds(270, 12, 85, 19);
+	       lblPeso.setBounds(250, 12, 85, 19);
 	       panelLblStatusAnt.add(lblPeso);
 	       
 	       JLabel lblImc = new JLabel("IMC:");
 	       lblImc.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblImc.setForeground(Color.WHITE);
-	       lblImc.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblImc.setFont(f1);
 	       lblImc.setAlignmentX(1.0f);
 	       lblImc.setBounds(435, 12, 67, 19);
 	       panelLblStatusAnt.add(lblImc);
@@ -426,7 +460,7 @@ public class GerenciarAcademia extends JFrame {
 	       panelLblStatusAnt.add(lblGorduraAnt);
 	       lblGorduraAnt.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblGorduraAnt.setForeground(Color.WHITE);
-	       lblGorduraAnt.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblGorduraAnt.setFont(f1);
 	       lblGorduraAnt.setAlignmentX(1.0f);
 	       
 	       lblPesoAnt = new JLabel(user.getMeuStatus().getPeso()[0]+"KG");
@@ -434,7 +468,7 @@ public class GerenciarAcademia extends JFrame {
 	       panelLblStatusAnt.add(lblPesoAnt);
 	       lblPesoAnt.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblPesoAnt.setForeground(Color.WHITE);
-	       lblPesoAnt.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblPesoAnt.setFont(f1);
 	       lblPesoAnt.setAlignmentX(1.0f);
 	       
 	       lblImcAnt = new JLabel(nf.format(user.getMeuStatus().gerarImc(0))+"");
@@ -442,35 +476,35 @@ public class GerenciarAcademia extends JFrame {
 	       panelLblStatusAnt.add(lblImcAnt);
 	       lblImcAnt.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblImcAnt.setForeground(Color.WHITE);
-	       lblImcAnt.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblImcAnt.setFont(f1);
 	       lblImcAnt.setAlignmentX(1.0f);
 	       
 	       panelLblStatusAtual = new JPanel();
 	       panelLblStatusAtual.setLayout(null);
 	       panelLblStatusAtual.setOpaque(false);
-	       panelLblStatusAtual.setBounds(40, 257, 565, 69);
+	       panelLblStatusAtual.setBounds(40, 277, 565, 69);
 	       panelProgresso.add(panelLblStatusAtual);
 	       
 	       JLabel lblGordura_1 = new JLabel("Gordura Corporal:");
-	       lblGordura_1.setHorizontalAlignment(SwingConstants.LEFT);
+	       lblGordura_1.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblGordura_1.setForeground(Color.WHITE);
-	       lblGordura_1.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblGordura_1.setFont(f1);
 	       lblGordura_1.setAlignmentX(1.0f);
-	       lblGordura_1.setBounds(0, 12, 159, 19);
+	       lblGordura_1.setBounds(0, 12, 170, 19);
 	       panelLblStatusAtual.add(lblGordura_1);
 	       
 	       JLabel lblPeso_1 = new JLabel("Peso:");
-	       lblPeso_1.setHorizontalAlignment(SwingConstants.LEFT);
+	       lblPeso_1.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblPeso_1.setForeground(Color.WHITE);
-	       lblPeso_1.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblPeso_1.setFont(f1);
 	       lblPeso_1.setAlignmentX(1.0f);
-	       lblPeso_1.setBounds(270, 12, 85, 19);
+	       lblPeso_1.setBounds(250, 12, 85, 19);
 	       panelLblStatusAtual.add(lblPeso_1);
 	       
 	       JLabel lblImc_1 = new JLabel("IMC:");
 	       lblImc_1.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblImc_1.setForeground(Color.WHITE);
-	       lblImc_1.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblImc_1.setFont(f1);
 	       lblImc_1.setAlignmentX(1.0f);
 	       lblImc_1.setBounds(435, 12, 69, 19);
 	       panelLblStatusAtual.add(lblImc_1);
@@ -480,7 +514,7 @@ public class GerenciarAcademia extends JFrame {
 	       panelLblStatusAtual.add(lblGorduraAtual);
 	       lblGorduraAtual.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblGorduraAtual.setForeground(Color.WHITE);
-	       lblGorduraAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblGorduraAtual.setFont(f1);
 	       lblGorduraAtual.setAlignmentX(1.0f);
 	       
 	       lblPesoAtual = new JLabel(user.getMeuStatus().getPeso()[1]+"KG");
@@ -488,7 +522,7 @@ public class GerenciarAcademia extends JFrame {
 	       panelLblStatusAtual.add(lblPesoAtual);
 	       lblPesoAtual.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblPesoAtual.setForeground(Color.WHITE);
-	       lblPesoAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblPesoAtual.setFont(f1);
 	       lblPesoAtual.setAlignmentX(1.0f);
 	       
 	       lblImcAtual = new JLabel(nf.format(user.getMeuStatus().gerarImc(1))+"");
@@ -496,13 +530,13 @@ public class GerenciarAcademia extends JFrame {
 	       panelLblStatusAtual.add(lblImcAtual);
 	       lblImcAtual.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblImcAtual.setForeground(Color.WHITE);
-	       lblImcAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblImcAtual.setFont(f1);
 	       lblImcAtual.setAlignmentX(1.0f);
 	       
 	       JLabel lblTitle2 = new JLabel("Seu progresso atual:");
 	       lblTitle2.setForeground(Color.WHITE);
-	       lblTitle2.setFont(new Font("DejaVu Sans", Font.BOLD, 18));
-	       lblTitle2.setBounds(40, 210, 235, 36);
+	       lblTitle2.setFont(f2);
+	       lblTitle2.setBounds(40, 240, 235, 36);
 	       panelProgresso.add(lblTitle2);
 	       
 	       panelLblStatusAnt_1 = new JPanel();
@@ -514,23 +548,23 @@ public class GerenciarAcademia extends JFrame {
 	       lblMassaM = new JLabel("Massa Magra:");
 	       lblMassaM.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaM.setForeground(Color.WHITE);
-	       lblMassaM.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaM.setFont(f1);
 	       lblMassaM.setAlignmentX(1.0f);
 	       lblMassaM.setBounds(0, 12, 149, 19);
 	       panelLblStatusAnt_1.add(lblMassaM);
 	       
 	       lblTmb = new JLabel("TMB");
-	       lblTmb.setHorizontalAlignment(SwingConstants.LEFT);
+	       lblTmb.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblTmb.setForeground(Color.WHITE);
-	       lblTmb.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblTmb.setFont(f1);
 	       lblTmb.setAlignmentX(1.0f);
-	       lblTmb.setBounds(270, 12, 85, 19);
+	       lblTmb.setBounds(250, 12, 85, 19);
 	       panelLblStatusAnt_1.add(lblTmb);
 	       
 	       lblMassaG = new JLabel("Massa Gorda:");
 	       lblMassaG.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaG.setForeground(Color.WHITE);
-	       lblMassaG.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaG.setFont(f1);
 	       lblMassaG.setAlignmentX(1.0f);
 	       lblMassaG.setBounds(407, 12, 135, 19);
 	       panelLblStatusAnt_1.add(lblMassaG);
@@ -538,7 +572,7 @@ public class GerenciarAcademia extends JFrame {
 	       lblMassaMagraAnt = new JLabel(nf.format(user.getMeuStatus().calculoMassaMagra(0))+"%");
 	       lblMassaMagraAnt.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaMagraAnt.setForeground(Color.WHITE);
-	       lblMassaMagraAnt.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaMagraAnt.setFont(f1);
 	       lblMassaMagraAnt.setAlignmentX(1.0f);
 	       lblMassaMagraAnt.setBounds(10, 42, 127, 19);
 	       panelLblStatusAnt_1.add(lblMassaMagraAnt);
@@ -546,7 +580,7 @@ public class GerenciarAcademia extends JFrame {
 	       lblTmbAnt = new JLabel(nf.format(user.getMeuStatus().calculoTMB(user.getMeuStatus().getSexo(),0))+"");
 	       lblTmbAnt.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblTmbAnt.setForeground(Color.WHITE);
-	       lblTmbAnt.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblTmbAnt.setFont(f1);
 	       lblTmbAnt.setAlignmentX(1.0f);
 	       lblTmbAnt.setBounds(253, 42, 85, 19);
 	       panelLblStatusAnt_1.add(lblTmbAnt);
@@ -554,7 +588,7 @@ public class GerenciarAcademia extends JFrame {
 	       lblMassaGordaAnt = new JLabel(nf.format(user.getMeuStatus().calculoMassaGorda(0))+"%");
 	       lblMassaGordaAnt.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaGordaAnt.setForeground(Color.WHITE);
-	       lblMassaGordaAnt.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaGordaAnt.setFont(f1);
 	       lblMassaGordaAnt.setAlignmentX(1.0f);
 	       lblMassaGordaAnt.setBounds(420, 42, 95, 19);
 	       panelLblStatusAnt_1.add(lblMassaGordaAnt);
@@ -562,29 +596,29 @@ public class GerenciarAcademia extends JFrame {
 	       panelLblStatusAtual_2 = new JPanel();
 	       panelLblStatusAtual_2.setLayout(null);
 	       panelLblStatusAtual_2.setOpaque(false);
-	       panelLblStatusAtual_2.setBounds(40, 324, 565, 75);
+	       panelLblStatusAtual_2.setBounds(40, 344, 565, 75);
 	       panelProgresso.add(panelLblStatusAtual_2);
 	       
 	       lblMassaM_1 = new JLabel("Massa Magra:");
 	       lblMassaM_1.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaM_1.setForeground(Color.WHITE);
-	       lblMassaM_1.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaM_1.setFont(f1);
 	       lblMassaM_1.setAlignmentX(1.0f);
 	       lblMassaM_1.setBounds(0, 12, 149, 19);
 	       panelLblStatusAtual_2.add(lblMassaM_1);
 	       
 	       lblTmb_1 = new JLabel("TMB");
-	       lblTmb_1.setHorizontalAlignment(SwingConstants.LEFT);
+	       lblTmb_1.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblTmb_1.setForeground(Color.WHITE);
-	       lblTmb_1.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblTmb_1.setFont(f1);
 	       lblTmb_1.setAlignmentX(1.0f);
-	       lblTmb_1.setBounds(270, 12, 85, 19);
+	       lblTmb_1.setBounds(250, 12, 85, 19);
 	       panelLblStatusAtual_2.add(lblTmb_1);
 	       
 	       lblMassaG_1 = new JLabel("Massa Gorda:");
 	       lblMassaG_1.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaG_1.setForeground(Color.WHITE);
-	       lblMassaG_1.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaG_1.setFont(f1);
 	       lblMassaG_1.setAlignmentX(1.0f);
 	       lblMassaG_1.setBounds(407, 12, 135, 19);
 	       panelLblStatusAtual_2.add(lblMassaG_1);
@@ -592,7 +626,7 @@ public class GerenciarAcademia extends JFrame {
 	       lblMassaMagraAtual = new JLabel(nf.format(user.getMeuStatus().calculoMassaMagra(1))+"%");
 	       lblMassaMagraAtual.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaMagraAtual.setForeground(Color.WHITE);
-	       lblMassaMagraAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaMagraAtual.setFont(f1);
 	       lblMassaMagraAtual.setAlignmentX(1.0f);
 	       lblMassaMagraAtual.setBounds(10, 42, 127, 19);
 	       panelLblStatusAtual_2.add(lblMassaMagraAtual);
@@ -600,7 +634,7 @@ public class GerenciarAcademia extends JFrame {
 	       lblTmbAtual = new JLabel(nf.format(user.getMeuStatus().calculoTMB(user.getMeuStatus().getSexo(),1))+"");
 	       lblTmbAtual.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblTmbAtual.setForeground(Color.WHITE);
-	       lblTmbAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblTmbAtual.setFont(f1);
 	       lblTmbAtual.setAlignmentX(1.0f);
 	       lblTmbAtual.setBounds(253, 42, 85, 19);
 	       panelLblStatusAtual_2.add(lblTmbAtual);
@@ -608,7 +642,7 @@ public class GerenciarAcademia extends JFrame {
 	       lblMassaGordaAtual = new JLabel(nf.format(user.getMeuStatus().calculoMassaGorda(1))+"%");
 	       lblMassaGordaAtual.setHorizontalAlignment(SwingConstants.CENTER);
 	       lblMassaGordaAtual.setForeground(Color.WHITE);
-	       lblMassaGordaAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+	       lblMassaGordaAtual.setFont(f1);
 	       lblMassaGordaAtual.setAlignmentX(1.0f);
 	       lblMassaGordaAtual.setBounds(420, 42, 95, 19);
 	       panelLblStatusAtual_2.add(lblMassaGordaAtual);
@@ -621,7 +655,7 @@ public class GerenciarAcademia extends JFrame {
 		lblPlanoAtual = new JLabel();
 		lblPlanoAtual.setForeground(Color.WHITE);
 		lblPlanoAtual.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPlanoAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		lblPlanoAtual.setFont(f1);
 		
 		
 		if(user.getMeuPlano().getMeuPlano()==0)
@@ -631,7 +665,7 @@ public class GerenciarAcademia extends JFrame {
 		else if(user.getMeuPlano().getMeuPlano()==2)
 			lblPlanoAtual.setText("PLANO ATUAL: CAVALO");
 		
-		lblPlanoAtual.setBounds(10,54,246,40);
+		lblPlanoAtual.setBounds(10,54,270,40);
 		panelPlano.add(lblPlanoAtual);
 		
 		lblPacoteAtual = new JLabel();
@@ -648,8 +682,8 @@ public class GerenciarAcademia extends JFrame {
 		
 		lblPacoteAtual.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPacoteAtual.setForeground(Color.WHITE);
-		lblPacoteAtual.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
-		lblPacoteAtual.setBounds(381, 54, 259, 40);
+		lblPacoteAtual.setFont(f1);
+		lblPacoteAtual.setBounds(340, 54, 295, 40);
 		panelPlano.add(lblPacoteAtual);
 		
 		btnPacote = new JLabel();
@@ -657,7 +691,7 @@ public class GerenciarAcademia extends JFrame {
 		btnPacote.setText("QUERO MUDAR MEU PACOTE!");
 		btnPacote.setHorizontalAlignment(SwingConstants.CENTER);
 		btnPacote.setForeground(Color.WHITE);
-		btnPacote.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		btnPacote.setFont(f2);
 		btnPacote.setBounds(170, 297, 322, 40);
 		btnPacote.setOpaque(true);
 		panelPlano.add(btnPacote);
@@ -668,7 +702,7 @@ public class GerenciarAcademia extends JFrame {
 		btnPlano.setText("QUERO MUDAR MEU PLANO!");
 		btnPlano.setHorizontalAlignment(SwingConstants.CENTER);
 		btnPlano.setForeground(Color.WHITE);
-		btnPlano.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		btnPlano.setFont(f2);
 		btnPlano.setBounds(170, 209, 322, 40);
 		panelPlano.add(btnPlano);
 		acoesPlano();
@@ -682,30 +716,29 @@ public class GerenciarAcademia extends JFrame {
 		double x = user.getMeuPlano().getTipoPlano()[user.getMeuPlano().getMeuPlano()];
 		double y = user.getMeuPlano().getTipoPacote()[user.getMeuPlano().getMeuPacote()];
 
-		NumberFormat nf = NumberFormat.getCurrencyInstance();
+		NumberFormat nf = NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(2);
 		nf.setMinimumFractionDigits(2);
 		
-		lblDespesaPlano.setText("CUSTO DO PLANO: "+nf.format(x));
-		
+		lblDespesaPlano.setText("CUSTO DO PLANO: R$"+nf.format(x));
 		lblDespesaPlano.setForeground(Color.WHITE);
-		lblDespesaPlano.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		lblDespesaPlano.setFont(f1);
 		lblDespesaPlano.setBounds(10, 45, 255, 19);
 		panelDespesas.add(lblDespesaPlano);
 		
 		lblDespesaPacote = new JLabel();
-		lblDespesaPacote.setText("CUSTO DO PACOTE: "+nf.format(y));
+		lblDespesaPacote.setText("CUSTO DO PACOTE: R$"+nf.format(y));
 		lblDespesaPacote.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDespesaPacote.setForeground(Color.WHITE);
-		lblDespesaPacote.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		lblDespesaPacote.setFont(f1);
 		lblDespesaPacote.setBounds(10, 95, 277, 19);
 		panelDespesas.add(lblDespesaPacote);
 		
 		lblDespesaTotal = new JLabel();
-		lblDespesaTotal.setText("CUSTO TOTAL: "+nf.format((x+y)));
+		lblDespesaTotal.setText("CUSTO TOTAL: R$"+nf.format((x+y)));
 		lblDespesaTotal.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDespesaTotal.setForeground(Color.WHITE);
-		lblDespesaTotal.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		lblDespesaTotal.setFont(f1);
 		lblDespesaTotal.setBounds(10, 145, 255, 19);
 		panelDespesas.add(lblDespesaTotal);
 		
@@ -715,15 +748,15 @@ public class GerenciarAcademia extends JFrame {
 		btnPagarMensalidade.setBackground(new Color(55, 213, 106));
 		btnPagarMensalidade.setOpaque(true);
 		btnPagarMensalidade.setForeground(Color.WHITE);
-		btnPagarMensalidade.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		btnPagarMensalidade.setFont(f2);
 		btnPagarMensalidade.setBounds(10, 209, 255, 39);
 		panelDespesas.add(btnPagarMensalidade);
 		
 		lblSeuSaldo = new JLabel();
-		lblSeuSaldo.setText("SEU SALDO: "+nf.format(user.getMeuBanco().getSaldo()));
+		lblSeuSaldo.setText("SEU SALDO: R$"+nf.format(user.getMeuBanco().getSaldo()));
 		lblSeuSaldo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblSeuSaldo.setForeground(Color.WHITE);
-		lblSeuSaldo.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		lblSeuSaldo.setFont(f1);
 		lblSeuSaldo.setBounds(385, 99, 255, 19);
 		panelDespesas.add(lblSeuSaldo);
 		
@@ -732,7 +765,7 @@ public class GerenciarAcademia extends JFrame {
 		btnAtualizarSaldo.setOpaque(true);
 		btnAtualizarSaldo.setHorizontalAlignment(SwingConstants.CENTER);
 		btnAtualizarSaldo.setForeground(Color.WHITE);
-		btnAtualizarSaldo.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		btnAtualizarSaldo.setFont(f2);
 		btnAtualizarSaldo.setBackground(new Color(55, 213, 106));
 		btnAtualizarSaldo.setBounds(385, 209, 255, 39);
 		panelDespesas.add(btnAtualizarSaldo);
@@ -757,7 +790,7 @@ public class GerenciarAcademia extends JFrame {
 		txtSobre.setForeground(Color.WHITE);
 		txtSobre.setOpaque(false);
 		txtSobre.setBackground(new Color(0,0,0,0));
-		txtSobre.setFont(new Font("DejaVu Sans", Font.BOLD, 16));
+		txtSobre.setFont(f1);
 		txtSobre.setEditable(false);
 		panelSobre.add(txtSobre);
 		
@@ -785,7 +818,7 @@ public class GerenciarAcademia extends JFrame {
         panelPlano.setBounds(312, 182, 650, 425);
         panelPlano.setLayout(null);
         panelPlano.setOpaque(false);
-//        contentPane.add(panelPlano);
+        contentPane.add(panelPlano);
 		
 		
         panelDespesas = new JPanel();
@@ -793,14 +826,14 @@ public class GerenciarAcademia extends JFrame {
         panelDespesas.setLayout(null);
 		panelDespesas.setBounds(312, 182, 650, 425);
         panelDespesas.setVisible(false);
-  //      contentPane.add(panelDespesas);		
+        contentPane.add(panelDespesas);		
         
         panelSobre = new JPanel();
         panelSobre.setBackground(new Color(0,0,0,0));
         panelSobre.setOpaque(false);
         panelSobre.setBounds(312, 182, 650, 425);
         panelSobre.setVisible(false);
-    //    contentPane.add(panelSobre);
+        contentPane.add(panelSobre);
 		
 		inicializarProgresso();
 		inicializarPlano();
@@ -820,6 +853,7 @@ public class GerenciarAcademia extends JFrame {
 		setContentPane(contentPane);
 		setResizable(false);
 		
+		inicializarFontes();
 		inicializarMenu();
 		inicializarLayers();
 		
