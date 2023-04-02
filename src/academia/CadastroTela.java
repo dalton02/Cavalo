@@ -15,6 +15,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
@@ -83,7 +87,11 @@ public class CadastroTela {
     private void salvarUsuario(){
     	
 
-		File arquivo = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
+        LocalDate dataAtual = LocalDate.now();
+
+        // Formatar a data atual
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        File arquivo = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
 
 		try{
 	    
@@ -99,6 +107,10 @@ public class CadastroTela {
 	            escritor.write(sexo+"\n");
 	            escritor.write(txtPeso.getText()+"\n");
 	            escritor.write(txtPercentual.getText()+"\n");
+	            escritor.write(txtPeso.getText()+"\n");
+	            escritor.write(txtPercentual.getText()+"\n");
+	            escritor.write(dataAtual.format(formatter)+"\n");
+	            escritor.write(dataAtual.format(formatter));
 	            escritor.close();
 	        }	
 	
@@ -160,6 +172,8 @@ public class CadastroTela {
 		    				sexo = 'F';
 		    			
 		    			salvarUsuario();
+		    			Principal c1 = new Principal();
+		    			c1.setVisible(true);
 		    			frame.dispose();
 	    		
 		    		}
@@ -628,6 +642,28 @@ public class CadastroTela {
         labelBackground.setLocation(0, 0);
         labelBackground.setSize(900, 600);
         frame.getContentPane().add(labelBackground);
+        
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
+
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+        Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
+        frame.setCursor(customCursor);
+        btnProximo.setCursor(customCursor2);
+        usernameField.setCursor(customCursor2);
+        txtInsiraSuaSenha.setCursor(customCursor2);
+        txtRepitaSuaSenha.setCursor(customCursor2);
+        txtBanco.setCursor(customCursor2);
+        txtSaldo.setCursor(customCursor2);
+        txtIdade.setCursor(customCursor2);
+        txtPercentual.setCursor(customCursor2);
+        txtPeso.setCursor(customCursor2);
+        txtAltura.setCursor(customCursor2);
+        radioFrango.setCursor(customCursor2);
+        radioGiga.setCursor(customCursor2);
+        radioMaromba.setCursor(customCursor2);
+        radioM.setCursor(customCursor2);
+        radioF.setCursor(customCursor2);
         
         
         acoes();

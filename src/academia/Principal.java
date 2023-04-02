@@ -1,21 +1,28 @@
 package academia;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
+import javax.swing.Icon;
 
 public class Principal extends JFrame {
 
@@ -24,6 +31,7 @@ public class Principal extends JFrame {
 	private JLabel lblLogo;
 	private JButton btnEntrar;
 	private JButton btnCadastrar;
+	private JLabel btnAdmin;
 	/**
 	 * Launch the application.
 	 */
@@ -74,6 +82,36 @@ public class Principal extends JFrame {
 				dispose();
 			}
 		});
+		
+		btnAdmin.addMouseListener(new MouseAdapter() {
+			
+			public void mouseEntered(MouseEvent e) {
+				ImageIcon adminImage = new ImageIcon(getClass().getResource("/Imagens/admin2.png"));
+				Image imgRedimensionada = adminImage.getImage().getScaledInstance(100,90, Image.SCALE_SMOOTH);
+				adminImage = new ImageIcon(imgRedimensionada);
+				btnAdmin.setIcon(adminImage);
+				
+			}
+			public void mouseExited(MouseEvent e) {
+				ImageIcon adminImage = new ImageIcon(getClass().getResource("/Imagens/admin.png"));
+				Image imgRedimensionada = adminImage.getImage().getScaledInstance(100,90, Image.SCALE_SMOOTH);
+				adminImage = new ImageIcon(imgRedimensionada);
+				btnAdmin.setIcon(adminImage);
+				
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String x = JOptionPane.showInputDialog(null,"Você é Médico?");
+				if(x.equals("SIM")) {
+					AdministradorTela c1 = new AdministradorTela();
+					c1.frame.setVisible(true);
+					dispose();		
+				}
+			
+			
+			}
+		});
 	
 	
 	}
@@ -113,12 +151,36 @@ public class Principal extends JFrame {
 		btnCadastrar.setLocation(900/2-(167/2), 400);
 		contentPane.add(btnCadastrar);
 		
+
+
+		ImageIcon adminImage = new ImageIcon(getClass().getResource("/Imagens/admin.png"));
+		Image imgRedimensionada = adminImage.getImage().getScaledInstance(100,90, Image.SCALE_SMOOTH);
+		adminImage = new ImageIcon(imgRedimensionada);
+		btnAdmin = new JLabel(adminImage);
+		btnAdmin.setBounds(725, 435, 100, 90);
+		contentPane.add(btnAdmin);
+		
+		
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
+
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+        Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
+        setCursor(customCursor);
+        btnEntrar.setCursor(customCursor2);
+        btnCadastrar.setCursor(customCursor2);
+        btnAdmin.setCursor(customCursor2);
+        
+		
+		
+		
+		
+
+		
 		ImageIcon backImage = new ImageIcon(getClass().getResource("/Imagens/BackGround.png"));
 		lblBackground = new JLabel(backImage);
 		lblBackground.setBounds(0,0,900,600);
-		contentPane.add(lblBackground);	
-		lblBackground.setFocusable(true);
-		
+		contentPane.add(lblBackground);
 		acoesBotao();
 	}
 }

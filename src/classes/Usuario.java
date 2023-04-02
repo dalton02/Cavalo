@@ -7,7 +7,8 @@ public class Usuario {
 	private Banco meuBanco;
 	private Plano meuPlano;
 	private Status meuStatus;
-		
+	private Data dataInicio;
+	private Data dataFinal;
 	//Getters Setters
 	
 	public String getNome() {
@@ -39,6 +40,18 @@ public class Usuario {
 	}
 	public void setMeuStatus(Status meuStatus) {
 		this.meuStatus = meuStatus;
+	}
+	public Data getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(Data dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	public Data getDataFinal() {
+		return dataFinal;
+	}
+	public void setDataFinal(Data dataFinal) {
+		this.dataFinal = dataFinal;
 	}
 	
 	

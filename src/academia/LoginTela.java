@@ -231,6 +231,17 @@ public class LoginTela {
         inicializarLayers();
         inicializarLayer1();
        
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
+
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+        Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
+        frame.setCursor(customCursor);
+        txtInsiraSuaSenha.setCursor(customCursor2);
+        usernameField.setCursor(customCursor2);
+        btnProximo.setCursor(customCursor2);
+        
+        
         ImageIcon bgImage = new ImageIcon(LoginTela.class.getResource("/Imagens/BackGround.png"));
         labelBackground = new JLabel(bgImage);
         labelBackground.setLocation(0, 0);

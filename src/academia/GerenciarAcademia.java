@@ -1,6 +1,9 @@
 package academia;
 
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +14,7 @@ import java.awt.Color;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
 
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
@@ -25,9 +29,11 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.awt.Canvas;
 
 public class GerenciarAcademia extends JFrame {
 
@@ -37,6 +43,7 @@ public class GerenciarAcademia extends JFrame {
 	private JLabel lblPlano;
 	private JLabel lblDespesas;
 	private JLabel lblSobre;
+	private JLabel lblSair;
 	private JPanel panelProgresso;
 	private JPanel panelPlano;
 	private JPanel panelSobre;
@@ -115,6 +122,9 @@ public class GerenciarAcademia extends JFrame {
 		Banco banco = new Banco();
 		Plano plano = new Plano();
 		Status status = new Status();
+		Data dataInicio = new Data();
+		Data dataFinal = new Data();
+		
 		ArrayList<String> linhas = new ArrayList<>();
 	    
 		try {
@@ -136,9 +146,30 @@ public class GerenciarAcademia extends JFrame {
 			e.printStackTrace();
 		}
 		
+		
+		String dataS = String.valueOf(linhas.get(13));
+		int dia = Integer.valueOf(dataS.substring(0, 2));
+		int mes = Integer.valueOf(dataS.substring(3, 5));
+		int ano = Integer.valueOf(dataS.substring(6, 10));
+		
+		dataInicio.setDia(dia);
+		dataInicio.setMes(mes);
+		dataInicio.setAno(ano);
+		
+		dataS = String.valueOf(linhas.get(14));
+		dia = Integer.valueOf(dataS.substring(0, 2));
+		mes = Integer.valueOf(dataS.substring(3, 5));
+		ano = Integer.valueOf(dataS.substring(6, 10));
+
+		dataFinal.setDia(dia);
+		dataFinal.setMes(mes);
+		dataFinal.setAno(ano);
+		
 		user.setMeuBanco(banco);
 		user.setMeuPlano(plano);
 		user.setMeuStatus(status);
+		user.setDataInicio(dataInicio);
+		user.setDataFinal(dataFinal);
 		user.setNome(linhas.get(0));
 		user.setSenha(linhas.get(1));
 		user.getMeuPlano().setMeuPlano(Integer.valueOf(linhas.get(2)));
@@ -228,12 +259,29 @@ public class GerenciarAcademia extends JFrame {
 	        		panelSobre.setVisible(true);
 	        	}
 	        });
+
+		 lblSair.addMouseListener(new MouseAdapter() {
+	        	@Override
+	        	public void mouseEntered(MouseEvent e) {
+	        	lblSair.setForeground(Color.WHITE);
+	        	}
+	        	public void mouseExited(MouseEvent e) {
+	        	lblSair.setForeground(Color.DARK_GRAY);
+	        	}
+	        	public void mouseClicked(MouseEvent e) {
+	        	
+	        		int x = JOptionPane.showConfirmDialog(null, "Deseja mesmo sair?");
+	        		if(x==0) {
+	        			Principal c1 = new Principal();
+	        			c1.setVisible(true);
+	        			dispose();
+	        		}
+	        	
+	        	}
+	        });
 	}
 	
 	
-	private void acoesProgresso() {
-		
-	}
 	
 	private void acoesPlano() {
 		btnPlano.addMouseListener(new MouseAdapter() {
@@ -386,7 +434,7 @@ public class GerenciarAcademia extends JFrame {
         lblPlano.setForeground(Color.DARK_GRAY);
         lblPlano.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlano.setFont(f3);
-        lblPlano.setBounds(0, 120, 245, 40);
+        lblPlano.setBounds(0, 55, 245, 40);
         
         panelMenu.add(lblPlano);
         
@@ -394,22 +442,33 @@ public class GerenciarAcademia extends JFrame {
         lblProgresso.setForeground(Color.DARK_GRAY);
         lblProgresso.setHorizontalAlignment(SwingConstants.CENTER);
         lblProgresso.setFont(f3);
-        lblProgresso.setBounds(0, 220, 245, 40);
+        lblProgresso.setBounds(0, 155, 245, 40);
         panelMenu.add(lblProgresso);
-        
-        lblSobre = new JLabel("Sobre");
-        lblSobre.setForeground(Color.DARK_GRAY);
-        lblSobre.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSobre.setFont(f3);
-        lblSobre.setBounds(0, 420, 245, 40);
-        panelMenu.add(lblSobre);
         
         lblDespesas = new JLabel("Despesas");
         lblDespesas.setForeground(Color.DARK_GRAY);
         lblDespesas.setHorizontalAlignment(SwingConstants.CENTER);
         lblDespesas.setFont(f3);
-        lblDespesas.setBounds(0, 320, 245, 40);
+        lblDespesas.setBounds(0, 255, 245, 40);
         panelMenu.add(lblDespesas);
+        
+        lblSobre = new JLabel("Sobre");
+        lblSobre.setForeground(Color.DARK_GRAY);
+        lblSobre.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSobre.setFont(f3);
+        lblSobre.setBounds(0, 355, 245, 40);
+        panelMenu.add(lblSobre);
+        
+        
+        lblSair = new JLabel("Sair");
+        lblSair.setForeground(Color.DARK_GRAY);
+        lblSair.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSair.setFont(f3);
+        lblSair.setBounds(0, 455, 245, 40);
+        panelMenu.add(lblSair);
+        
+        
+        
         acoesMenu();
 	}
 	
@@ -424,10 +483,10 @@ public class GerenciarAcademia extends JFrame {
 	       panelProgresso.add(panelLblStatusAnt);
 	       panelLblStatusAnt.setLayout(null);
 	       
-	       JLabel lblTitle1 = new JLabel("Quando você começou:");
+	       JLabel lblTitle1 = new JLabel("Quando você começou: ("+ user.getDataInicio().mostrarData() +")");
 	       lblTitle1.setForeground(Color.WHITE);
 	       lblTitle1.setFont(f2);
-	       lblTitle1.setBounds(40, 11, 235, 36);
+	       lblTitle1.setBounds(40, 11, 350, 36);
 	       panelProgresso.add(lblTitle1);
 	       
 	       
@@ -533,10 +592,10 @@ public class GerenciarAcademia extends JFrame {
 	       lblImcAtual.setFont(f1);
 	       lblImcAtual.setAlignmentX(1.0f);
 	       
-	       JLabel lblTitle2 = new JLabel("Seu progresso atual:");
+	       JLabel lblTitle2 = new JLabel("Seu progresso atual: ("+ user.getDataFinal().mostrarData() +")");
 	       lblTitle2.setForeground(Color.WHITE);
 	       lblTitle2.setFont(f2);
-	       lblTitle2.setBounds(40, 240, 235, 36);
+	       lblTitle2.setBounds(40, 240, 350, 36);
 	       panelProgresso.add(lblTitle2);
 	       
 	       panelLblStatusAnt_1 = new JPanel();
@@ -646,9 +705,22 @@ public class GerenciarAcademia extends JFrame {
 	       lblMassaGordaAtual.setAlignmentX(1.0f);
 	       lblMassaGordaAtual.setBounds(420, 42, 95, 19);
 	       panelLblStatusAtual_2.add(lblMassaGordaAtual);
-	       acoesProgresso();
-		
-	}
+	       
+	        JPanel canvas = new JPanel() {
+	    	   public void paintComponent(Graphics g) {
+	    		   super.paintComponent(g);
+	    		   g.setColor(Color.WHITE);
+	    		   g.fillRoundRect(0, 3, 655, 4, 4,4);
+	    		   g.fillOval(0, 0, 10, 10);
+	    		   g.fillOval(640, 0, 10, 10);
+	    	   }
+	    	   
+	    	   
+	       };
+	       canvas.setOpaque(false);
+	       canvas.setBounds(0, 220, 700, 80);
+	       panelProgresso.add(canvas);
+	   }
 	
 	private void inicializarPlano() {
 		
@@ -792,6 +864,7 @@ public class GerenciarAcademia extends JFrame {
 		txtSobre.setBackground(new Color(0,0,0,0));
 		txtSobre.setFont(f1);
 		txtSobre.setEditable(false);
+		txtSobre.setAlignmentX(CENTER_ALIGNMENT);
 		panelSobre.add(txtSobre);
 		
 		lblTitle2 = new JLabel();
@@ -853,10 +926,28 @@ public class GerenciarAcademia extends JFrame {
 		setContentPane(contentPane);
 		setResizable(false);
 		
+
+		
 		inicializarFontes();
 		inicializarMenu();
 		inicializarLayers();
 		
+		
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
+
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+        Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
+        setCursor(customCursor);
+        btnAtualizarSaldo.setCursor(customCursor2);
+        btnPacote.setCursor(customCursor2);
+        btnPagarMensalidade.setCursor(customCursor2);
+        btnPlano.setCursor(customCursor2);
+        lblSobre.setCursor(customCursor2);
+        lblPlano.setCursor(customCursor2);
+        lblDespesas.setCursor(customCursor2);
+        lblProgresso.setCursor(customCursor2);
+		lblSair.setCursor(customCursor2);
 		ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/logo.png"));
         Image img = logoImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(400,160, Image.SCALE_SMOOTH);
