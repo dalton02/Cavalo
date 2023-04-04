@@ -68,7 +68,7 @@ public class GerenciarAcademia extends JFrame {
 	private JLabel lblSeuSaldo;
 	private JLabel btnAtualizarSaldo;
 	private JLabel lblTitle2;
-	private Usuario user;
+	private Cliente user;
 	private File userFile;
 	private FileReader userReader;
 	private BufferedReader userBuffer;
@@ -97,8 +97,8 @@ public class GerenciarAcademia extends JFrame {
 	}
 	
 	private void inicializarFontes() {
-		File fontFile = new File(System.getProperty("user.dir")+"/src/Fontes/arvo.ttf");
-		File fontFile2 = new File(System.getProperty("user.dir")+"/src/Fontes/arvoB.ttf");
+		File fontFile = new File(System.getProperty("user.dir")+"/src/fontes/arvo.ttf");
+		File fontFile2 = new File(System.getProperty("user.dir")+"/src/fontes/arvoB.ttf");
 
 		try {
 			f1 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
@@ -120,7 +120,8 @@ public class GerenciarAcademia extends JFrame {
 	}
 	
 	private void inicializarUsuario(){
-		user = new Usuario();
+		user = new Cliente();
+		
 		Banco banco = new Banco();
 		Status status = new Status();
 		Data dataInicio = new Data();
@@ -946,10 +947,10 @@ public class GerenciarAcademia extends JFrame {
 		inicializarLayers();
 		
 		
-		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor.png");
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
 
-		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor2.png");
         Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
         setCursor(customCursor);
         btnAtualizarSaldo.setCursor(customCursor2);
@@ -961,7 +962,7 @@ public class GerenciarAcademia extends JFrame {
         lblDespesas.setCursor(customCursor2);
         lblProgresso.setCursor(customCursor2);
 		lblSair.setCursor(customCursor2);
-		ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/logo.png"));
+		ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/imagens/logo.png"));
         Image img = logoImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(400,160, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -970,7 +971,7 @@ public class GerenciarAcademia extends JFrame {
         getContentPane().add(lblLogo);
         
         
-        ImageIcon bgImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/troyes.png"));        
+        ImageIcon bgImage = new ImageIcon(CadastroTela.class.getResource("/imagens/troyes.png"));        
         JLabel labelBackground = new JLabel(bgImage);
         labelBackground.setLocation(0, 0);
         labelBackground.setSize(1000, 720);

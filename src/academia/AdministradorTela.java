@@ -9,6 +9,9 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import classes.Usuario;
+
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,8 +38,10 @@ public class AdministradorTela {
 	private JButton btnMudarIdade;
 	private JButton btnMudarPeso;
 	private JButton btnMudarPercentual;
-
-	public AdministradorTela() {
+	private Usuario medico;
+	
+	public AdministradorTela(Usuario medico) {
+		this.medico = medico;
 		initialize();
 	}
 
@@ -48,7 +53,7 @@ public class AdministradorTela {
 			BufferedReader userBuffer = new BufferedReader(userReader);
 			int i=0;
 			String linha; 
-			 StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			while ((linha = userBuffer.readLine()) != null) {
 				
 				if(linhaModificada==i) {
@@ -80,7 +85,7 @@ public class AdministradorTela {
 	private ArrayList<String> lerArquivo(String usuario) {
 		
 		ArrayList<String> linhas = new ArrayList<>();
-		File arquivo = new File(System.getProperty("user.dir")+"/src/Textos/"+usuario+".txt");
+		File arquivo = new File(System.getProperty("user.dir")+"/src/clientes/"+usuario+".txt");
 
 		if(!arquivo.exists()) {
         	
@@ -140,7 +145,7 @@ public class AdministradorTela {
 			public void actionPerformed(ActionEvent e) {
 			if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
 				String x = JOptionPane.showInputDialog(null,"Insira novo peso");
-				modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/Textos/"+txtUsuario.getText()+".txt"));
+				modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 				gerarBusca(lerArquivo(txtUsuario.getText()));
 				atualizarData();
 			}
@@ -153,7 +158,7 @@ public class AdministradorTela {
 			public void actionPerformed(ActionEvent e) {
 				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
 					String x = JOptionPane.showInputDialog(null,"Insira nova idade");
-					modificarLinha(7, x, new File(System.getProperty("user.dir")+"/src/Textos/"+txtUsuario.getText()+".txt"));
+					modificarLinha(7, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 					gerarBusca(lerArquivo(txtUsuario.getText()));
 					atualizarData();
 				}
@@ -166,7 +171,7 @@ public class AdministradorTela {
 			public void actionPerformed(ActionEvent e) {
 				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
 					String x = JOptionPane.showInputDialog(null,"Insira nova altura");
-					modificarLinha(6, x, new File(System.getProperty("user.dir")+"/src/Textos/"+txtUsuario.getText()+".txt"));
+					modificarLinha(6, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 					gerarBusca(lerArquivo(txtUsuario.getText()));
 					atualizarData();
 				}
@@ -181,7 +186,7 @@ public class AdministradorTela {
 			public void actionPerformed(ActionEvent e) {
 				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
 					String x = JOptionPane.showInputDialog(null,"Insira novo percentual");
-					modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/Textos/"+txtUsuario.getText()+".txt"));
+					modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 					gerarBusca(lerArquivo(txtUsuario.getText()));
 					atualizarData();
 				}
@@ -201,7 +206,7 @@ public class AdministradorTela {
         // Formatar a data atual
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		gerarBusca(lerArquivo(txtUsuario.getText()));
-		modificarLinha(14, formatter.format(dataAtual) , new File(System.getProperty("user.dir")+"/src/Textos/"+txtUsuario.getText()+".txt"));
+		modificarLinha(14, formatter.format(dataAtual) , new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 		
 	}
 	
@@ -210,6 +215,9 @@ public class AdministradorTela {
 		frame.setBounds(100, 100, 800, 300);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
+		
+		JLabel nomeMedico = new JLabel();
+		nomeMedico.setText("Médico:"+medico.getNome());
 		
 		JPanel panelUsuarios = new JPanel();
 		panelUsuarios.setBounds(10, 11, 764, 92);

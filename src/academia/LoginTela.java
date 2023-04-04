@@ -33,8 +33,8 @@ public class LoginTela {
     
     private void inicializarFontes() {
     	
-    	File fontFile = new File(System.getProperty("user.dir")+"/src/Fontes/arvo.ttf");
-		File fontFile2 = new File(System.getProperty("user.dir")+"/src/Fontes/arvoI.ttf");
+    	File fontFile = new File(System.getProperty("user.dir")+"/src/fontes/arvo.ttf");
+		File fontFile2 = new File(System.getProperty("user.dir")+"/src/fontes/arvoI.ttf");
 		
 		try {
 			f1 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
@@ -103,7 +103,7 @@ public class LoginTela {
         txtInsiraSuaSenha.setFont(f2);
         layer1.add(txtInsiraSuaSenha);
         
-        ImageIcon fieldImage = new ImageIcon(LoginTela.class.getResource("/Imagens/field.png"));
+        ImageIcon fieldImage = new ImageIcon(LoginTela.class.getResource("/imagens/field.png"));
         Image img = fieldImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(321,24, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -145,7 +145,7 @@ public class LoginTela {
         	}
 	    	public void mouseClicked(MouseEvent e) {
 	    		
-	    		File arquivo = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
+	    		File arquivo = new File(System.getProperty("user.dir")+"/src/clientes/"+usernameField.getText()+".txt");
 	             
 	    		if(arquivo.exists()) {
 	    			boolean liberado=false;
@@ -207,7 +207,7 @@ public class LoginTela {
         lblRetorna.setForeground(new Color(255, 255, 255));
         lblRetorna.setBounds(36, 21, 41, 37);
         frame.getContentPane().add(lblRetorna);
-        ImageIcon logoImage = new ImageIcon(LoginTela.class.getResource("/Imagens/logo.png"));
+        ImageIcon logoImage = new ImageIcon(LoginTela.class.getResource("/imagens/logo.png"));
         Image img = logoImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(440,160, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -231,10 +231,10 @@ public class LoginTela {
         inicializarLayers();
         inicializarLayer1();
        
-		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor.png");
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
 
-		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor2.png");
         Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
         frame.setCursor(customCursor);
         txtInsiraSuaSenha.setCursor(customCursor2);
@@ -242,7 +242,7 @@ public class LoginTela {
         btnProximo.setCursor(customCursor2);
         
         
-        ImageIcon bgImage = new ImageIcon(LoginTela.class.getResource("/Imagens/BackGround.png"));
+        ImageIcon bgImage = new ImageIcon(LoginTela.class.getResource("/imagens/BackGround.png"));
         labelBackground = new JLabel(bgImage);
         labelBackground.setLocation(0, 0);
         labelBackground.setSize(900, 600);

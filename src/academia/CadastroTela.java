@@ -51,7 +51,7 @@ public class CadastroTela {
     private char sexo;
     private JTextField txtPercentual;
     
-	private Font f1,f2,f3;
+	private Font f1,f2,f3,f4;
     
     public CadastroTela() {
     	initialize();
@@ -69,6 +69,7 @@ public class CadastroTela {
 			f1 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
 			f2 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile2)).deriveFont(Font.PLAIN, 18);
 			f3 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile3)).deriveFont(Font.PLAIN, 28);
+			f4 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile2)).deriveFont(Font.PLAIN, 15);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -92,7 +93,7 @@ public class CadastroTela {
 
         // Formatar a data atual
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        File arquivo = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
+        File arquivo = new File(System.getProperty("user.dir")+"/src/clientes/"+usernameField.getText()+".txt");
 
 		try{
 	    
@@ -133,8 +134,11 @@ public class CadastroTela {
 	    			
 		    		if(layer1.isVisible()) {
 		    			
-		    			if(txtInsiraSuaSenha.getText().equals(txtRepitaSuaSenha.getText()) ) {
-		    			File arquivoExiste = new File(System.getProperty("user.dir")+"/src/Textos/"+usernameField.getText()+".txt");
+		    			if(txtInsiraSuaSenha.getText().isEmpty() || usernameField.getText().isEmpty() || txtRepitaSuaSenha.getText().isEmpty())
+		    			JOptionPane.showMessageDialog(null, "Preencha tudo!!");
+		    			
+		    			else if(txtInsiraSuaSenha.getText().equals(txtRepitaSuaSenha.getText()) ) {
+		    			File arquivoExiste = new File(System.getProperty("user.dir")+"/src/clientes/"+usernameField.getText()+".txt");
 		    			   if(!arquivoExiste.exists()) {
 		    				layer1.setVisible(false);
 			    			layer2.setVisible(true);	
@@ -148,17 +152,40 @@ public class CadastroTela {
 		    		}
 		    		
 		    		else if(layer2.isVisible()) {
+		    			
+
+		    			try {
+		    			double testar = Double.parseDouble(txtSaldo.getText());	
+		    			if(txtBanco.getText().isEmpty() || txtSaldo.getText().isEmpty() )
+			    			JOptionPane.showMessageDialog(null, "Preencha tudo!!");
+		    			else {
 		    			layer2.setVisible(false);
 		    			layer3.setVisible(true);
+		    			}
+		    			}
+		    			catch(NumberFormatException a) {
+		    				JOptionPane.showMessageDialog(null, a);
+		    			}
+		    		
 		    		}
 		    		else if(layer3.isVisible()) {
-
+		    			
 		    			layer3.setVisible(false);
 		    			layer4.setVisible(true);
 		    			
 		    		}
 		    		else {
 		    			
+		    			try {
+		    			
+		    			double testar = Double.parseDouble(txtPercentual.getText());
+		    			double testar2 = Double.parseDouble(txtPeso.getText());
+		    			int testar3 = Integer.parseInt(txtAltura.getText());
+		    			int testar4 = Integer.parseInt(txtIdade.getText());
+		    			
+		    			if(txtIdade.getText().isEmpty() || txtAltura.getText().isEmpty() || txtPeso.getText().isEmpty())
+			    			JOptionPane.showMessageDialog(null, "Preencha tudo!!");
+		    			else {
 		    			if(radioFrango.isSelected())
 		    				tipoPlano=0;
 		    			else if(radioMaromba.isSelected())
@@ -176,7 +203,11 @@ public class CadastroTela {
 		    			Principal c1 = new Principal();
 		    			c1.setVisible(true);
 		    			frame.dispose();
-	    		
+		    			}
+		    			}
+		    			catch(NumberFormatException a) {
+		    				JOptionPane.showMessageDialog(null, "Insira numeros reais nos devidos campos");
+		    			}
 		    		}
 		    		
 	    		}
@@ -236,6 +267,8 @@ public class CadastroTela {
          	}
          });    
     }
+    
+    
     
     private void inicializarLayers() {
     	
@@ -306,7 +339,7 @@ public class CadastroTela {
          layer4.add(txtAltura);
          
          //Field Images
-         ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/field.png"));
+         ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/imagens/field.png"));
          Image img = fieldImage.getImage();
          Image imgRedimensionada = img.getScaledInstance(txtAltura.getBounds().width,24, Image.SCALE_SMOOTH);
          ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -444,7 +477,7 @@ public class CadastroTela {
         layer3.add(radioGiga);
         
         lblFrango = new JLabel("<html>Mensalidade: R$39,99 <br/>\r\nBeneficios:<br/>\r\n- Uso dos equipamentos da academia</html>");
-        lblFrango.setFont(f3);
+        lblFrango.setFont(f4);
         lblFrango.setForeground(Color.WHITE);
         lblFrango.setBounds(41, 87, 168, 113);
         
@@ -452,13 +485,13 @@ public class CadastroTela {
         
         JLabel lblmensalidadeRBeneficios = new JLabel("<html>Mensalidade: R$69,99 <br/>\r\nBeneficios: <br/>\r\n- Personal Trainner qualificado\r\n<br/>- Brindes todo mês</html>");
         lblmensalidadeRBeneficios.setForeground(Color.WHITE);
-        lblmensalidadeRBeneficios.setFont(f3);
+        lblmensalidadeRBeneficios.setFont(f4);
         lblmensalidadeRBeneficios.setBounds(299, 87, 168, 113);
         layer3.add(lblmensalidadeRBeneficios);
         
         JLabel lblmensalidadeRBeneficios_1 = new JLabel("<html>Mensalidade: R$99,99 <br/>\r\nBeneficios: <br/>\r\n- Beneficios plano maromba <br/>\r\n- Acesso a equipe medica e descontos no bar</html>");
         lblmensalidadeRBeneficios_1.setForeground(Color.WHITE);
-        lblmensalidadeRBeneficios_1.setFont(f3);
+        lblmensalidadeRBeneficios_1.setFont(f4);
         lblmensalidadeRBeneficios_1.setBounds(549, 87, 168, 149);
         layer3.add(lblmensalidadeRBeneficios_1);
         
@@ -513,7 +546,7 @@ public class CadastroTela {
         txtInsiraSuaSenha.setFont(f2);
         layer1.add(txtInsiraSuaSenha);
         
-        ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/field.png"));
+        ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/imagens/field.png"));
         Image img = fieldImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(321,24, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -586,7 +619,7 @@ public class CadastroTela {
          lblInsiraSuasInformaes.setBounds(160, 26, 379, 35);
          layer2.add(lblInsiraSuasInformaes);
          
-         ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/field.png"));
+         ImageIcon fieldImage = new ImageIcon(CadastroTela.class.getResource("/imagens/field.png"));
          Image img = fieldImage.getImage();
          Image imgRedimensionada = img.getScaledInstance(321,24, Image.SCALE_SMOOTH);
          ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -616,7 +649,7 @@ public class CadastroTela {
         lblRetorna.setForeground(new Color(255, 255, 255));
         lblRetorna.setBounds(36, 21, 41, 37);
         frame.getContentPane().add(lblRetorna);
-        ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/logo.png"));
+        ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/imagens/logo.png"));
         Image img = logoImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(440,160, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -641,16 +674,16 @@ public class CadastroTela {
         frame.getContentPane().add(btnProximo);
 
         
-        ImageIcon bgImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/BackGround.png"));
+        ImageIcon bgImage = new ImageIcon(CadastroTela.class.getResource("/imagens/BackGround.png"));
         labelBackground = new JLabel(bgImage);
         labelBackground.setLocation(0, 0);
         labelBackground.setSize(900, 600);
         frame.getContentPane().add(labelBackground);
         
-		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor.png");
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
 
-		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor2.png");
         Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
         frame.setCursor(customCursor);
         btnProximo.setCursor(customCursor2);

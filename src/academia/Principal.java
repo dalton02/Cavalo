@@ -7,11 +7,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import classes.Medico;
+import classes.Usuario;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -86,14 +95,14 @@ public class Principal extends JFrame {
 		btnAdmin.addMouseListener(new MouseAdapter() {
 			
 			public void mouseEntered(MouseEvent e) {
-				ImageIcon adminImage = new ImageIcon(getClass().getResource("/Imagens/admin2.png"));
+				ImageIcon adminImage = new ImageIcon(getClass().getResource("/imagens/admin2.png"));
 				Image imgRedimensionada = adminImage.getImage().getScaledInstance(100,90, Image.SCALE_SMOOTH);
 				adminImage = new ImageIcon(imgRedimensionada);
 				btnAdmin.setIcon(adminImage);
 				
 			}
 			public void mouseExited(MouseEvent e) {
-				ImageIcon adminImage = new ImageIcon(getClass().getResource("/Imagens/admin.png"));
+				ImageIcon adminImage = new ImageIcon(getClass().getResource("/imagens/admin.png"));
 				Image imgRedimensionada = adminImage.getImage().getScaledInstance(100,90, Image.SCALE_SMOOTH);
 				adminImage = new ImageIcon(imgRedimensionada);
 				btnAdmin.setIcon(adminImage);
@@ -102,14 +111,58 @@ public class Principal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				String x = JOptionPane.showInputDialog(null,"Você é Médico?");
-				if(x.equals("SIM")) {
-					AdministradorTela c1 = new AdministradorTela();
+				String[] options = {"Login","Cadastro"};
+				int x = JOptionPane.showOptionDialog(null, "O que deseja fazer médico?","Escolha" , JOptionPane.CLOSED_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				
+				
+				if(x==0) {
+				String usuario = JOptionPane.showInputDialog(null,"Insira seu usuário");
+				File arquivo = new File(System.getProperty("user.dir")+"/src/medicos/"+usuario+".txt");
+				String senha = JOptionPane.showInputDialog(null,"Insira suas senha");
+				 
+	    		if(arquivo.exists()) {
+	    			boolean liberado=false;
+	    			FileReader fileReader;
+					try {
+					fileReader = new FileReader(arquivo);
+					BufferedReader bufferedReader = new BufferedReader(fileReader);
+		            String linha;
+		            int i=0;
+		            while ((linha = bufferedReader.readLine()) != null) {
+		               if(i==1 && linha.equals(senha)) {
+		           	   liberado=true;
+		               }
+		               i++;
+		             }
+		             fileReader.close();
+		             bufferedReader.close();
+					}
+					catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					if(liberado) {
+						Usuario med = new Medico();
+						med.setNome(usuario);
+						med.setSenha(senha);
+			    		AdministradorTela c1 = new AdministradorTela(med);
+			    		c1.frame.setVisible(true);
+			    		dispose();		
+					}		
+					else
+						JOptionPane.showMessageDialog(null,"Senha errada");
+	    		}
+	    		else 
+	    			JOptionPane.showMessageDialog(null, "Usuario não existe");
+	    	}
+				else {
+					
+					MedicoCadastroTela c1 = new MedicoCadastroTela();
 					c1.frame.setVisible(true);
-					dispose();		
+					dispose();
+					
 				}
-			
-			
 			}
 		});
 	
@@ -127,7 +180,7 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ImageIcon logoImage = new ImageIcon(getClass().getResource("/Imagens/logo.png"));
+		ImageIcon logoImage = new ImageIcon(getClass().getResource("/imagens/logo.png"));
 		lblLogo = new JLabel(logoImage);
 		lblLogo.setBounds(243,51,600,300);
 		lblLogo.setLocation((900/2)-(600/2),10);
@@ -153,7 +206,7 @@ public class Principal extends JFrame {
 		
 
 
-		ImageIcon adminImage = new ImageIcon(getClass().getResource("/Imagens/admin.png"));
+		ImageIcon adminImage = new ImageIcon(getClass().getResource("/imagens/admin.png"));
 		Image imgRedimensionada = adminImage.getImage().getScaledInstance(100,90, Image.SCALE_SMOOTH);
 		adminImage = new ImageIcon(imgRedimensionada);
 		btnAdmin = new JLabel(adminImage);
@@ -161,10 +214,10 @@ public class Principal extends JFrame {
 		contentPane.add(btnAdmin);
 		
 		
-		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor.png");
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor.png");
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
 
-		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/Imagens/cursor2.png");
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor2.png");
         Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
         setCursor(customCursor);
         btnEntrar.setCursor(customCursor2);
@@ -177,7 +230,7 @@ public class Principal extends JFrame {
 		
 
 		
-		ImageIcon backImage = new ImageIcon(getClass().getResource("/Imagens/BackGround.png"));
+		ImageIcon backImage = new ImageIcon(getClass().getResource("/imagens/BackGround.png"));
 		lblBackground = new JLabel(backImage);
 		lblBackground.setBounds(0,0,900,600);
 		contentPane.add(lblBackground);
