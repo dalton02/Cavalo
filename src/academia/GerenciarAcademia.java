@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import classes.*;
+
+
 import java.awt.Color;
 
 import java.awt.Font;
@@ -120,7 +122,6 @@ public class GerenciarAcademia extends JFrame {
 	private void inicializarUsuario(){
 		user = new Usuario();
 		Banco banco = new Banco();
-		Plano plano = new Plano();
 		Status status = new Status();
 		Data dataInicio = new Data();
 		Data dataFinal = new Data();
@@ -165,14 +166,26 @@ public class GerenciarAcademia extends JFrame {
 		dataFinal.setMes(mes);
 		dataFinal.setAno(ano);
 		
+		Plano plano;
+		
+		if(Integer.valueOf(linhas.get(2))==0) 
+		plano = new PlanoFrango();
+		else if(Integer.valueOf(linhas.get(2))==1) 
+		plano = new PlanoMaromba();
+		else if(Integer.valueOf(linhas.get(2))==2) 
+		plano = new PlanoCavalo();
+		else {
+		   plano = null; // Tratar caso em que não há um plano definido
+		}
+		
+			
 		user.setMeuBanco(banco);
-		user.setMeuPlano(plano);
+		user.setMeuPlano((Plano) plano);
 		user.setMeuStatus(status);
 		user.setDataInicio(dataInicio);
 		user.setDataFinal(dataFinal);
 		user.setNome(linhas.get(0));
 		user.setSenha(linhas.get(1));
-		user.getMeuPlano().setMeuPlano(Integer.valueOf(linhas.get(2)));
 		user.getMeuPlano().setMeuPacote(Integer.valueOf(linhas.get(3)));
 		user.getMeuBanco().setSaldo(Double.valueOf(linhas.get(5)));
 		user.getMeuBanco().setBanco(linhas.get(4));
@@ -191,7 +204,7 @@ public class GerenciarAcademia extends JFrame {
 			user.getMeuStatus().setPeso(1, Double.valueOf(linhas.get(11)));
 		}
 		
-		user.getMeuPlano().aplicarDesconto(user.getMeuPlano().getMeuPlano());
+		user.getMeuPlano().aplicarDesconto();
 		
 	}
 	
@@ -358,7 +371,7 @@ public class GerenciarAcademia extends JFrame {
 			}
 			public void mouseClicked(MouseEvent e) {
 				
-				double valorPlano = user.getMeuPlano().getTipoPlano()[user.getMeuPlano().getMeuPlano()];
+				double valorPlano = user.getMeuPlano().getValor();
 				double valorPacote = user.getMeuPlano().getTipoPacote()[user.getMeuPlano().getMeuPacote()];
 				
 				if(user.getMeuBanco().getSaldo()>(valorPacote+valorPlano)) {
@@ -785,7 +798,7 @@ public class GerenciarAcademia extends JFrame {
 		lblDespesaPlano = new JLabel();
 		lblDespesaPlano.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		double x = user.getMeuPlano().getTipoPlano()[user.getMeuPlano().getMeuPlano()];
+		double x = user.getMeuPlano().getValor();
 		double y = user.getMeuPlano().getTipoPacote()[user.getMeuPlano().getMeuPacote()];
 
 		NumberFormat nf = NumberFormat.getInstance();

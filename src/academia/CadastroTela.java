@@ -63,11 +63,12 @@ public class CadastroTela {
     	
     	File fontFile = new File(System.getProperty("user.dir")+"/src/Fontes/arvo.ttf");
 		File fontFile2 = new File(System.getProperty("user.dir")+"/src/Fontes/arvoI.ttf");
+		File fontFile3 = new File(System.getProperty("user.dir")+"/src/Fontes/gagalin.ttf");
 		
 		try {
 			f1 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
 			f2 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile2)).deriveFont(Font.PLAIN, 18);
-			f3 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 14);
+			f3 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile3)).deriveFont(Font.PLAIN, 28);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -628,15 +629,18 @@ public class CadastroTela {
         lblFicha.setBounds(397, 185, 160, 22);
         frame.getContentPane().add(lblFicha);
 
-        btnProximo = new JLabel("PROXIMO >");
-        btnProximo.setForeground(Color.WHITE);
-        btnProximo.setFont(f3);
-        btnProximo.setBackground(new Color(0, 0, 0, 0));
-        btnProximo.setBounds(364, 479, 164, 37);
-        frame.getContentPane().add(btnProximo);
 
         inicializarFontes();
         inicializarLayers();
+        
+        btnProximo = new JLabel("PROXIMO");
+        btnProximo.setForeground(Color.WHITE);
+        btnProximo.setFont(f3);
+        btnProximo.setBackground(new Color(0, 0, 0, 0));
+        btnProximo.setBounds(390, 479, 170, 37);
+        frame.getContentPane().add(btnProximo);
+
+        
         ImageIcon bgImage = new ImageIcon(CadastroTela.class.getResource("/Imagens/BackGround.png"));
         labelBackground = new JLabel(bgImage);
         labelBackground.setLocation(0, 0);
