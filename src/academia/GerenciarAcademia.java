@@ -733,7 +733,22 @@ public class GerenciarAcademia extends JFrame {
 	       };
 	       canvas.setOpaque(false);
 	       canvas.setBounds(0, 220, 700, 80);
+	       
+	       JPanel bloqueio = new JPanel();
+	       bloqueio.setOpaque(true);
+	       bloqueio.setBounds(0,220,700,500);
+	       bloqueio.setBackground(Color.WHITE);
+	       
 	       panelProgresso.add(canvas);
+	 	  
+		 ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/imagens/bloqueio.png"));
+	       JLabel lblBloqueio = new JLabel(logoImage);
+	       lblBloqueio.setBounds(0,0,700,500);
+	       bloqueio.add(lblBloqueio);
+	       if(user.getMeuPlano().getMeuPlano()!=2)
+	    	   panelProgresso.add(bloqueio);
+	       
+	       
 	   }
 	
 	private void inicializarPlano() {

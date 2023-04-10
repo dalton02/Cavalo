@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 
 import classes.Usuario;
 
+import classes.Medico;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,9 +39,9 @@ public class AdministradorTela {
 	private JButton btnMudarIdade;
 	private JButton btnMudarPeso;
 	private JButton btnMudarPercentual;
-	private Usuario medico;
+	private Medico medico;
 	
-	public AdministradorTela(Usuario medico) {
+	public AdministradorTela(Medico medico) {
 		this.medico = medico;
 		initialize();
 	}
@@ -143,40 +144,40 @@ public class AdministradorTela {
 		
 		btnMudarPeso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
+			if(gerarBusca(lerArquivo(txtUsuario.getText())) && medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
 				String x = JOptionPane.showInputDialog(null,"Insira novo peso");
 				modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 				gerarBusca(lerArquivo(txtUsuario.getText()));
 				atualizarData();
 			}
 			else
-				JOptionPane.showMessageDialog(null, "Usuario não existe");
+				JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
 			}
 		});
 		
 		btnMudarIdade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
+				if(gerarBusca(lerArquivo(txtUsuario.getText()))&& medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
 					String x = JOptionPane.showInputDialog(null,"Insira nova idade");
 					modificarLinha(7, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 					gerarBusca(lerArquivo(txtUsuario.getText()));
 					atualizarData();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Usuario não existe");
+					JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
 			}
 		});
 		
 		btnMudarAltura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
+				if(gerarBusca(lerArquivo(txtUsuario.getText()))&& medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
 					String x = JOptionPane.showInputDialog(null,"Insira nova altura");
 					modificarLinha(6, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 					gerarBusca(lerArquivo(txtUsuario.getText()));
 					atualizarData();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Usuario não existe");
+					JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
 				
 			
 			}
@@ -184,14 +185,14 @@ public class AdministradorTela {
 		
 		btnMudarPercentual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
+				if(gerarBusca(lerArquivo(txtUsuario.getText()))&& medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
 					String x = JOptionPane.showInputDialog(null,"Insira novo percentual");
 					modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 					gerarBusca(lerArquivo(txtUsuario.getText()));
 					atualizarData();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Usuario não existe");
+					JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
 				
 			
 			}

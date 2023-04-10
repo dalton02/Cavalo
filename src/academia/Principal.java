@@ -143,7 +143,7 @@ public class Principal extends JFrame {
 						e1.printStackTrace();
 					}
 					if(liberado) {
-						Usuario med = new Medico();
+						Medico med = new Medico();
 						med.setNome(usuario);
 						med.setSenha(senha);
 			    		AdministradorTela c1 = new AdministradorTela(med);

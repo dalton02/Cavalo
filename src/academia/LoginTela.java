@@ -110,7 +110,6 @@ public class LoginTela {
         
         
         usernameField = new JTextField();
-        usernameField.setText("Muzzy");
         usernameField.setBounds(209, yCentro-50, 321, 24);
         usernameField.setFont(f2);
         usernameField.setBackground(new Color(200, 255, 83,0));
