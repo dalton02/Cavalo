@@ -21,7 +21,7 @@ public class Data {
 	
 	
 	public int getMes() {
-		return dia;
+		return mes;
 	}
 	public void setMes(int mes) {
 		this.mes = mes;

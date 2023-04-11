@@ -204,15 +204,12 @@ public class Principal extends JFrame {
 		btnCadastrar.setLocation(900/2-(167/2), 400);
 		contentPane.add(btnCadastrar);
 		
-
-
 		ImageIcon adminImage = new ImageIcon(getClass().getResource("/imagens/admin.png"));
 		Image imgRedimensionada = adminImage.getImage().getScaledInstance(100,90, Image.SCALE_SMOOTH);
 		adminImage = new ImageIcon(imgRedimensionada);
 		btnAdmin = new JLabel(adminImage);
 		btnAdmin.setBounds(725, 435, 100, 90);
 		contentPane.add(btnAdmin);
-		
 		
 		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor.png");
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
@@ -223,13 +220,7 @@ public class Principal extends JFrame {
         btnEntrar.setCursor(customCursor2);
         btnCadastrar.setCursor(customCursor2);
         btnAdmin.setCursor(customCursor2);
-        
-		
-		
-		
-		
 
-		
 		ImageIcon backImage = new ImageIcon(getClass().getResource("/imagens/BackGround.png"));
 		lblBackground = new JLabel(backImage);
 		lblBackground.setBounds(0,0,900,600);

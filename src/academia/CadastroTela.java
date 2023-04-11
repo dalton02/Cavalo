@@ -112,6 +112,7 @@ public class CadastroTela {
 	            escritor.write(txtPeso.getText()+"\n");
 	            escritor.write(txtPercentual.getText()+"\n");
 	            escritor.write(dataAtual.format(formatter)+"\n");
+	            escritor.write(dataAtual.format(formatter)+"\n");
 	            escritor.write(dataAtual.format(formatter));
 	            escritor.close();
 	        }	

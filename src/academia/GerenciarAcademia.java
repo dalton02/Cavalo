@@ -29,7 +29,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
@@ -126,6 +129,7 @@ public class GerenciarAcademia extends JFrame {
 		Status status = new Status();
 		Data dataInicio = new Data();
 		Data dataFinal = new Data();
+		Data dataPagamento = new Data();
 		
 		ArrayList<String> linhas = new ArrayList<>();
 	    
@@ -167,6 +171,28 @@ public class GerenciarAcademia extends JFrame {
 		dataFinal.setMes(mes);
 		dataFinal.setAno(ano);
 		
+		dataS = String.valueOf(linhas.get(15));
+		dia = Integer.valueOf(dataS.substring(0, 2));
+		mes = Integer.valueOf(dataS.substring(3, 5));
+		ano = Integer.valueOf(dataS.substring(6, 10));
+
+		
+		dataPagamento.setDia(dia);
+		dataPagamento.setAno(ano);
+		dataPagamento.setMes(mes);
+		
+			 
+		LocalDate c1 = LocalDate.now();
+		LocalDate dataPay = LocalDate.of(ano, mes, dia);
+		//Caso a data de pagamento tenha expirado
+		if(dataPay.isBefore(c1) || dataPay.equals(c1)) {
+			user.setLiberado(false);
+		}
+		else
+			user.setLiberado(true);
+		
+		
+		System.out.println("Mensalidade foi paga: "+user.isLiberado());
 		Plano plano;
 		
 		if(Integer.valueOf(linhas.get(2))==0) 
@@ -185,6 +211,7 @@ public class GerenciarAcademia extends JFrame {
 		user.setMeuStatus(status);
 		user.setDataInicio(dataInicio);
 		user.setDataFinal(dataFinal);
+		user.setDataPagamento(dataPagamento);
 		user.setNome(linhas.get(0));
 		user.setSenha(linhas.get(1));
 		user.getMeuPlano().setMeuPacote(Integer.valueOf(linhas.get(3)));
@@ -372,15 +399,25 @@ public class GerenciarAcademia extends JFrame {
 			}
 			public void mouseClicked(MouseEvent e) {
 				
-				double valorPlano = user.getMeuPlano().getValor();
+				LocalDate dataAtual = LocalDate.now();
+			    LocalDate dataAnt = 
+			    LocalDate.of(user.getDataPagamento().getAno(),user.getDataPagamento().getMes(),user.getDataPagamento().getDia());
+			    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			
+			    double valorPlano = user.getMeuPlano().getValor();
 				double valorPacote = user.getMeuPlano().getTipoPacote()[user.getMeuPlano().getMeuPacote()];
+				
+				if(dataAtual.isAfter(dataAnt)) {
 				
 				if(user.getMeuBanco().getSaldo()>(valorPacote+valorPlano)) {
 					
 				int x = JOptionPane.showConfirmDialog(null,"Deseja pagar a mensalidade atual?\nValor Pacote: "+valorPacote+
 				"\nPlano Atual: "+valorPlano+"\nTotal: "+(valorPlano+valorPacote));
 				if(x==0) {
-					modificarLinha(5, String.valueOf(user.getMeuBanco().getSaldo()-(valorPacote+valorPlano)));
+
+			        LocalDate dataNova = LocalDate.of(dataAtual.getYear(), dataAtual.getMonthValue()+1, dataAtual.getDayOfMonth());
+			       modificarLinha(5, String.valueOf(user.getMeuBanco().getSaldo()-(valorPacote+valorPlano)));
+					modificarLinha(15,dataNova.format(formatter));
 					JOptionPane.showMessageDialog(null, "Mensalidade Paga!!!");
 					atualizarTela();
 				
@@ -390,10 +427,15 @@ public class GerenciarAcademia extends JFrame {
 				else
 					JOptionPane.showMessageDialog(null, "Vai trabalhar!!!!");
 			}
-			
+				else
+					JOptionPane.showMessageDialog(null, "Mensalidade já foi paga");
+						
+				
+			}
 			
 		});	
 	}
+	
 	
 	private void atualizarTela() {
 		
@@ -487,6 +529,20 @@ public class GerenciarAcademia extends JFrame {
 	}
 	
 	private void inicializarProgresso() {
+		
+	       JPanel bloqueio = new JPanel();
+	       bloqueio.setOpaque(true);
+	       bloqueio.setBounds(0,220,700,250);
+	       bloqueio.setBackground(Color.WHITE);
+	       
+	       ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/imagens/bloqueio.png"));
+	       Image imgRedimensionada = logoImage.getImage().getScaledInstance(700, 250, Image.SCALE_SMOOTH);
+	       logoImage = new ImageIcon(imgRedimensionada);
+	       JLabel lblBloqueio = new JLabel(logoImage);
+	       lblBloqueio.setBounds(0,0,700,250);
+	       bloqueio.add(lblBloqueio);
+	       if(user.getMeuPlano().getMeuPlano()!=2)
+	    	   panelProgresso.add(bloqueio);
 		
     	   NumberFormat nf =NumberFormat.getInstance();
     	   nf.setMaximumFractionDigits(2);
@@ -666,6 +722,8 @@ public class GerenciarAcademia extends JFrame {
 	       lblMassaGordaAnt.setBounds(420, 42, 95, 19);
 	       panelLblStatusAnt_1.add(lblMassaGordaAnt);
 	       
+	 	  
+	       
 	       panelLblStatusAtual_2 = new JPanel();
 	       panelLblStatusAtual_2.setLayout(null);
 	       panelLblStatusAtual_2.setOpaque(false);
@@ -733,22 +791,7 @@ public class GerenciarAcademia extends JFrame {
 	       };
 	       canvas.setOpaque(false);
 	       canvas.setBounds(0, 220, 700, 80);
-	       
-	       JPanel bloqueio = new JPanel();
-	       bloqueio.setOpaque(true);
-	       bloqueio.setBounds(0,220,700,500);
-	       bloqueio.setBackground(Color.WHITE);
-	       
 	       panelProgresso.add(canvas);
-	 	  
-		 ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/imagens/bloqueio.png"));
-	       JLabel lblBloqueio = new JLabel(logoImage);
-	       lblBloqueio.setBounds(0,0,700,500);
-	       bloqueio.add(lblBloqueio);
-	       if(user.getMeuPlano().getMeuPlano()!=2)
-	    	   panelProgresso.add(bloqueio);
-	       
-	       
 	   }
 	
 	private void inicializarPlano() {
@@ -861,6 +904,18 @@ public class GerenciarAcademia extends JFrame {
 		lblSeuSaldo.setBounds(385, 99, 255, 19);
 		panelDespesas.add(lblSeuSaldo);
 		
+
+		JLabel lblLiberado = new JLabel();
+		if(user.isLiberado())
+		lblLiberado.setText("SUA MENSALIDADE FOI PAGA!!!");
+		else
+		lblLiberado.setText("SUA MENSALIDADE ESTÁ ATRASADA!!!");
+		lblLiberado.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblLiberado.setForeground(Color.WHITE);
+		lblLiberado.setFont(f1);
+		lblLiberado.setBounds(90, 350, 355, 19);
+		panelDespesas.add(lblLiberado);
+		
 		btnAtualizarSaldo = new JLabel();
 		btnAtualizarSaldo.setText("ATUALIZAR SALDO");
 		btnAtualizarSaldo.setOpaque(true);
@@ -870,7 +925,7 @@ public class GerenciarAcademia extends JFrame {
 		btnAtualizarSaldo.setBackground(new Color(55, 213, 106));
 		btnAtualizarSaldo.setBounds(385, 209, 255, 39);
 		panelDespesas.add(btnAtualizarSaldo);
-
+		
 		acoesDespesas();
 	}
 	
@@ -955,12 +1010,9 @@ public class GerenciarAcademia extends JFrame {
 		setContentPane(contentPane);
 		setResizable(false);
 		
-
-		
 		inicializarFontes();
 		inicializarMenu();
 		inicializarLayers();
-		
 		
 		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor.png");
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
