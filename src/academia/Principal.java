@@ -116,46 +116,10 @@ public class Principal extends JFrame {
 				
 				
 				if(x==0) {
-				String usuario = JOptionPane.showInputDialog(null,"Insira seu usuário");
-				File arquivo = new File(System.getProperty("user.dir")+"/src/medicos/"+usuario+".txt");
-				String senha = JOptionPane.showInputDialog(null,"Insira suas senha");
-				 
-	    		if(arquivo.exists()) {
-	    			boolean liberado=false;
-	    			FileReader fileReader;
-					try {
-					fileReader = new FileReader(arquivo);
-					BufferedReader bufferedReader = new BufferedReader(fileReader);
-		            String linha;
-		            int i=0;
-		            while ((linha = bufferedReader.readLine()) != null) {
-		               if(i==1 && linha.equals(senha)) {
-		           	   liberado=true;
-		               }
-		               i++;
-		             }
-		             fileReader.close();
-		             bufferedReader.close();
-					}
-					catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-					if(liberado) {
-						Medico med = new Medico();
-						med.setNome(usuario);
-						med.setSenha(senha);
-			    		AdministradorTela c1 = new AdministradorTela(med);
-			    		c1.frame.setVisible(true);
-			    		dispose();		
-					}		
-					else
-						JOptionPane.showMessageDialog(null,"Senha errada");
-	    		}
-	    		else 
-	    			JOptionPane.showMessageDialog(null, "Usuario não existe");
-	    	}
+					MedicoLoginTela c1 = new MedicoLoginTela();
+					c1.frame.setVisible(true);
+					dispose();
+				}
 				else {
 					
 					MedicoCadastroTela c1 = new MedicoCadastroTela();
@@ -176,7 +140,7 @@ public class Principal extends JFrame {
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		setTitle("Menu Principal");
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		

@@ -15,9 +15,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.event.ChangeListener;
+
+import classes.Medico;
+
 import javax.swing.event.ChangeEvent;
 
-public class LoginTela {
+public class MedicoLoginTela {
 
     public JFrame frame;
     private JTextField usernameField;
@@ -57,7 +60,7 @@ public class LoginTela {
     }
     
     
-    public LoginTela() {
+    public MedicoLoginTela() {
     	initialize();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -103,7 +106,7 @@ public class LoginTela {
         txtInsiraSuaSenha.setFont(f2);
         layer1.add(txtInsiraSuaSenha);
         
-        ImageIcon fieldImage = new ImageIcon(LoginTela.class.getResource("/imagens/field.png"));
+        ImageIcon fieldImage = new ImageIcon(MedicoLoginTela.class.getResource("/imagens/field.png"));
         Image img = fieldImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(321,24, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -144,7 +147,7 @@ public class LoginTela {
         	}
 	    	public void mouseClicked(MouseEvent e) {
 	    		
-	    		File arquivo = new File(System.getProperty("user.dir")+"/src/clientes/"+usernameField.getText()+".txt");
+	    		File arquivo = new File(System.getProperty("user.dir")+"/src/medicos/"+usernameField.getText()+".txt");
 	             
 	    		if(arquivo.exists()) {
 	    			boolean liberado=false;
@@ -169,8 +172,11 @@ public class LoginTela {
 						e1.printStackTrace();
 					}
 					if(liberado) {
-			    		GerenciarAcademia c1 = new GerenciarAcademia(arquivo);
-			    		c1.setVisible(true);
+						Medico med = new Medico();
+						med.setNome(usernameField.getText());
+						med.setSenha(txtInsiraSuaSenha.getText());
+			    		AdministradorTela c1 = new AdministradorTela(med);
+			    		c1.frame.setVisible(true);
 			    		frame.dispose();		
 					}		
 					else
@@ -199,14 +205,14 @@ public class LoginTela {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.getContentPane().setLayout(null);
-        frame.setTitle("Login");
+        frame.setTitle("Login Médico");
         
         lblRetorna = new JLabel("<");
         lblRetorna.setFont(new Font("Comic Sans MS", Font.PLAIN, 45));
         lblRetorna.setForeground(new Color(255, 255, 255));
         lblRetorna.setBounds(36, 21, 41, 37);
         frame.getContentPane().add(lblRetorna);
-        ImageIcon logoImage = new ImageIcon(LoginTela.class.getResource("/imagens/logo.png"));
+        ImageIcon logoImage = new ImageIcon(MedicoLoginTela.class.getResource("/imagens/logo.png"));
         Image img = logoImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(440,160, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
@@ -241,7 +247,7 @@ public class LoginTela {
         btnProximo.setCursor(customCursor2);
         
         
-        ImageIcon bgImage = new ImageIcon(LoginTela.class.getResource("/imagens/BackGround.png"));
+        ImageIcon bgImage = new ImageIcon(MedicoLoginTela.class.getResource("/imagens/BackGround.png"));
         labelBackground = new JLabel(bgImage);
         labelBackground.setLocation(0, 0);
         labelBackground.setSize(900, 600);

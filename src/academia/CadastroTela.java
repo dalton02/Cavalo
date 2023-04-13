@@ -467,7 +467,7 @@ public class CadastroTela {
         radioMaromba.setFocusable(false);
         layer3.add(radioMaromba);
         
-        radioGiga = new JRadioButton("Plano GigaChad");
+        radioGiga = new JRadioButton("Plano Cavalo");
         radioGiga.setForeground(Color.WHITE);
         radioGiga.setFont(f1);
         radioGiga.setBackground(new Color(0, 0, 0, 0));
@@ -477,14 +477,14 @@ public class CadastroTela {
         radioGiga.setFocusable(false);
         layer3.add(radioGiga);
         
-        lblFrango = new JLabel("<html>Mensalidade: R$39,99 <br/>\r\nBeneficios:<br/>\r\n- Uso dos equipamentos da academia</html>");
+        lblFrango = new JLabel("<html>Mensalidade: R$49,99 <br/>\r\nBeneficios:<br/>\r\n- Uso dos equipamentos da academia</html>");
         lblFrango.setFont(f4);
         lblFrango.setForeground(Color.WHITE);
-        lblFrango.setBounds(41, 87, 168, 113);
+        lblFrango.setBounds(41, 78, 168, 113);
         
         layer3.add(lblFrango);
         
-        JLabel lblmensalidadeRBeneficios = new JLabel("<html>Mensalidade: R$69,99 <br/>\r\nBeneficios: <br/>\r\n- Personal Trainner qualificado\r\n<br/>- Brindes todo mês</html>");
+        JLabel lblmensalidadeRBeneficios = new JLabel("<html>Mensalidade: R$79,99 <br/>\r\nBeneficios: <br/>\r\n- Personal Trainner qualificado\r\n<br/>- Brindes todo mês</html>");
         lblmensalidadeRBeneficios.setForeground(Color.WHITE);
         lblmensalidadeRBeneficios.setFont(f4);
         lblmensalidadeRBeneficios.setBounds(299, 87, 168, 113);

@@ -246,7 +246,7 @@ public class MedicoCadastroTela {
         frame.setBounds(100, 100, 900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
-        frame.setTitle("Cadastro");
+        frame.setTitle("Cadastro Médico");
         
         lblRetorna = new JLabel("<");
         lblRetorna.setFont(new Font("Comic Sans MS", Font.PLAIN, 45));

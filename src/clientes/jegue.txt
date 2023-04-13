@@ -3,7 +3,7 @@ jegue
 2
 1
 NU Bank Seguros
-300.01
+45.0
 234
 55
 M

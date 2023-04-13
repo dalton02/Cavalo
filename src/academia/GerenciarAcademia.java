@@ -336,13 +336,28 @@ public class GerenciarAcademia extends JFrame {
 				btnPlano.setBackground(new Color(55, 213, 106));
 			}
 			public void mouseClicked(MouseEvent e) {
-				String []options = {"Plano Frango","Plano Maromba","Plano Cavalo"};
+				String []options = {"Plano Frango","Plano Maromba","Plano Cavalo","Sobre Frango","Sobre Maromba","Sobre Cavalo"};
 				int escolha = JOptionPane.showOptionDialog(null, "Escolha seu novo plano","Escolha",JOptionPane.CLOSED_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				if(escolha>=0) {
-					modificarLinha(2, String.valueOf(escolha));
-					atualizarTela();	
+				Plano qualquer;
+					
+				if (escolha != JOptionPane.CLOSED_OPTION) {
+				    if (escolha == 3) {
+				        qualquer = new PlanoFrango();
+				    	JOptionPane.showMessageDialog(null, "Plano Frango - Pacote sem nenhum beneficio além do acesso a academia\nCusto: R$"+qualquer.getValor());
+				        
+				    } else if (escolha == 4) {
+				    	 qualquer = new PlanoMaromba();
+					    	
+				    	JOptionPane.showMessageDialog(null, "Plano Maromba - Pacote com acesso a personal trainer e a 7% de desconto nos pacotes\nCusto: R$ "+qualquer.getValor());
+				    } else if (escolha == 5) {
+				    	 qualquer = new PlanoCavalo();
+					    	
+				    	JOptionPane.showMessageDialog(null, "Plano Cavalo - Pacote com acesso a personal trainer e equipe médica para analisar seu progresso durante os treinos\nCusto: R$"+qualquer.getValor());
+				    } else {
+				    	modificarLinha(2, String.valueOf(escolha));
+						atualizarTela();	
+				    }
 				}
-				
 			}	
 		});
 		btnPacote.addMouseListener(new MouseAdapter() {
@@ -358,11 +373,20 @@ public class GerenciarAcademia extends JFrame {
 			}
 			public void mouseClicked(MouseEvent e) {
 
-				String []options = {"Nenhum :(","TREM-BALA","FREAKY","SUICIDA"};
+				String []options = {"Nenhum","TREM-BALA","FREAKY","SUICIDA","SOBRE TREM BALA","SOBRE FREAKY","SOBRE SUICIDA"};
 				int escolha = JOptionPane.showOptionDialog(null, "Escolha seu novo pacote","Escolha",JOptionPane.CLOSED_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				if(escolha>=0) {
-				modificarLinha(3, String.valueOf(escolha));
-				atualizarTela();
+				
+				if (escolha != JOptionPane.CLOSED_OPTION) {
+				    if (escolha == 4) {
+				    	JOptionPane.showMessageDialog(null, "TREM-BALA - Pacote de pré e pós treinos\nCusto do plano atual: R$"+user.getMeuPlano().getTipoPacote()[1]);
+				    } else if (escolha == 5) {
+				    	 JOptionPane.showMessageDialog(null, "FREAKY - Pacote com acesso a esteroides anabolizantes legais\nCusto do plano atual: R$ "+user.getMeuPlano().getTipoPacote()[2]);
+				    } else if (escolha == 6) {
+				    	 JOptionPane.showMessageDialog(null, "SUICIDA - Pacote com tudo incluso dos demais pacotes+vasodilatadores para potencializar seu treino\nCusto do plano atual: R$"+user.getMeuPlano().getTipoPacote()[3]);
+				    } else {
+				    	modificarLinha(3, String.valueOf(escolha));
+						atualizarTela();	
+				    }
 				}
 			}
 		});

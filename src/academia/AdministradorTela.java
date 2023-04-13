@@ -216,7 +216,7 @@ public class AdministradorTela {
 		frame.setBounds(100, 100, 800, 300);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
-		
+		frame.setTitle("Ala Médica");
 		JLabel nomeMedico = new JLabel();
 		nomeMedico.setText("Médico:"+medico.getNome());
 		
