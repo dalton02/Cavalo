@@ -33,7 +33,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 import javax.swing.Icon;
 
-public class Principal extends JFrame {
+public class PrincipalMed extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblBackground;
@@ -48,7 +48,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal();
+					PrincipalMed frame = new PrincipalMed();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,7 +68,7 @@ public class Principal extends JFrame {
 			}
 			
 			public void mouseClicked(MouseEvent e) {
-				LoginTela c1 = new LoginTela();
+				MedicoLoginTela c1 = new MedicoLoginTela();
 				c1.frame.setVisible(true);
 				dispose();
 				
@@ -86,7 +86,7 @@ public class Principal extends JFrame {
 			
 			public void mouseClicked(MouseEvent e) {
 			
-				CadastroTela c1 = new CadastroTela();
+				MedicoCadastroTela c1 = new MedicoCadastroTela();
 				c1.frame.setVisible(true);
 				dispose();
 			}
@@ -111,19 +111,22 @@ public class Principal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				int x = JOptionPane.showConfirmDialog(null, "Deseja ir para a área médica?");
+				int x = JOptionPane.showConfirmDialog(null, "Deseja voltar ao menu usuário?");
+				
+				
 				if(x==0) {
-					PrincipalMed c1 = new PrincipalMed();
+					Principal c1 = new Principal();
 					c1.setVisible(true);
 					dispose();
 				}
+				
 			}
 		});
 	
 	
 	}
 	
-	public Principal() {
+	public PrincipalMed() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
 		setResizable(false);
@@ -134,7 +137,7 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ImageIcon logoImage = new ImageIcon(getClass().getResource("/imagens/logo.png"));
+		ImageIcon logoImage = new ImageIcon(getClass().getResource("/imagens/logoMed.png"));
 		lblLogo = new JLabel(logoImage);
 		lblLogo.setBounds(243,51,600,300);
 		lblLogo.setLocation((900/2)-(600/2),10);

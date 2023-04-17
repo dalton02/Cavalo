@@ -555,15 +555,15 @@ public class GerenciarAcademia extends JFrame {
 	private void inicializarProgresso() {
 		
 	       JPanel bloqueio = new JPanel();
-	       bloqueio.setOpaque(true);
-	       bloqueio.setBounds(0,220,700,250);
+	       bloqueio.setOpaque(false);
+	       bloqueio.setBounds(16,240,600,270);
 	       bloqueio.setBackground(Color.WHITE);
 	       
 	       ImageIcon logoImage = new ImageIcon(CadastroTela.class.getResource("/imagens/bloqueio.png"));
-	       Image imgRedimensionada = logoImage.getImage().getScaledInstance(700, 250, Image.SCALE_SMOOTH);
+	       Image imgRedimensionada = logoImage.getImage().getScaledInstance(600, 270, Image.SCALE_SMOOTH);
 	       logoImage = new ImageIcon(imgRedimensionada);
 	       JLabel lblBloqueio = new JLabel(logoImage);
-	       lblBloqueio.setBounds(0,0,700,250);
+	       lblBloqueio.setBounds(0,0,600,270);
 	       bloqueio.add(lblBloqueio);
 	       if(user.getMeuPlano().getMeuPlano()!=2)
 	    	   panelProgresso.add(bloqueio);
@@ -989,7 +989,7 @@ public class GerenciarAcademia extends JFrame {
 		
 		panelProgresso = new JPanel();
 	    panelProgresso.setOpaque(false);
-	    panelProgresso.setBounds(312, 182, 650, 447);
+	    panelProgresso.setBounds(312, 182, 650, 480);
 	    panelProgresso.setLayout(null);
 	    panelProgresso.setVisible(false);
 	    contentPane.add(panelProgresso);

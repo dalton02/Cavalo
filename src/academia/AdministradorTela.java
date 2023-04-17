@@ -1,5 +1,6 @@
 package academia;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,8 +15,10 @@ import classes.Usuario;
 
 import classes.Medico;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -24,6 +27,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
@@ -40,10 +44,33 @@ public class AdministradorTela {
 	private JButton btnMudarPeso;
 	private JButton btnMudarPercentual;
 	private Medico medico;
+	private Font f1,f2,f3;
 	
 	public AdministradorTela(Medico medico) {
 		this.medico = medico;
 		initialize();
+	}
+	private void inicializarFontes() {
+		File fontFile = new File(System.getProperty("user.dir")+"/src/fontes/arvo.ttf");
+		File fontFile2 = new File(System.getProperty("user.dir")+"/src/fontes/arvoB.ttf");
+
+		try {
+			f1 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 18);
+			f2 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile2)).deriveFont(Font.PLAIN, 12);
+			f3 = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(fontFile)).deriveFont(Font.PLAIN, 12);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 
 
@@ -203,25 +230,70 @@ public class AdministradorTela {
 	
 	private void atualizarData() {
         LocalDate dataAtual = LocalDate.now();
-
-        // Formatar a data atual
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		gerarBusca(lerArquivo(txtUsuario.getText()));
 		modificarLinha(14, formatter.format(dataAtual) , new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
-		
 	}
 	
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 300);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
-		frame.setTitle("Ala Médica");
+	private void panelAc() {
+		JPanel panelAcoes = new JPanel();
+		panelAcoes.setBounds(10, 114, 764, 136);
+		panelAcoes.setOpaque(false);
+		frame.getContentPane().add(panelAcoes);
+		panelAcoes.setLayout(null);
+		
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(250, 10, 300, 20);
+		txtUsuario.setFont(f3);
+		panelAcoes.add(txtUsuario);
+		txtUsuario.setColumns(10);
+		
+		JLabel lblUsuario = new JLabel("Procure o usuário");
+		lblUsuario.setFont(f1);
+		lblUsuario.setForeground(Color.white);
+		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsuario.setBounds(305, 41, 200, 40);
+		panelAcoes.add(lblUsuario);
+		
+		btnProcurar = new JButton("PROCURAR");
+		btnProcurar.setFont(f2);
+		btnProcurar.setBackground(Color.pink);
+		btnProcurar.setBounds(560, 11, 121, 23);
+		panelAcoes.add(btnProcurar);
+		
+		btnMudarPeso = new JButton("MUDAR PESO");
+		btnMudarPeso.setFont(f2);
+		btnMudarPeso.setBackground(Color.pink);
+		btnMudarPeso.setBounds(10, 9, 142, 23);
+		panelAcoes.add(btnMudarPeso);
+		
+		btnMudarAltura = new JButton("MUDAR ALTURA");
+		btnMudarAltura.setBounds(10, 53, 142, 23);
+		btnMudarAltura.setBackground(Color.pink);
+		btnMudarAltura.setFont(f2);
+		panelAcoes.add(btnMudarAltura);
+		
+		btnMudarPercentual = new JButton("MUDAR PERC%");
+		btnMudarPercentual.setFont(f2);
+		btnMudarPercentual.setBackground(Color.pink);
+		btnMudarPercentual.setBounds(10, 102, 142, 23);
+		panelAcoes.add(btnMudarPercentual);
+		
+		btnMudarIdade = new JButton("MUDAR IDADE");
+		btnMudarIdade.setBounds(158, 102, 142, 23);
+		btnMudarIdade.setBackground(Color.pink);
+		btnMudarIdade.setFont(f2);
+		panelAcoes.add(btnMudarIdade);
+	
+	}
+	private void showInfo() {
+		
 		JLabel nomeMedico = new JLabel();
 		nomeMedico.setText("Médico:"+medico.getNome());
 		
 		JPanel panelUsuarios = new JPanel();
 		panelUsuarios.setBounds(10, 11, 764, 92);
+		panelUsuarios.setOpaque(false);
 		frame.getContentPane().add(panelUsuarios);
 		panelUsuarios.setLayout(null);
 		
@@ -233,45 +305,35 @@ public class AdministradorTela {
 		+ "\r\nIdade:   "
 		+ "\r\nPercentual:   ");
 		txtrUsuarioPesoAltura.setBounds(0, 0, 764, 92);
+		txtrUsuarioPesoAltura.setFont(f3);
+		txtrUsuarioPesoAltura.setForeground(Color.white);
+		txtrUsuarioPesoAltura.setOpaque(false);
 		panelUsuarios.add(txtrUsuarioPesoAltura);
 		
-		JPanel panelAcoes = new JPanel();
-		panelAcoes.setBounds(10, 114, 764, 136);
-		frame.getContentPane().add(panelAcoes);
-		panelAcoes.setLayout(null);
 		
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(250, 10, 300, 20);
-		panelAcoes.add(txtUsuario);
-		txtUsuario.setColumns(10);
 		
-		JLabel lblUsuario = new JLabel("Procure o usuário");
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsuario.setBounds(305, 41, 200, 40);
-		panelAcoes.add(lblUsuario);
+	}
+	
+	private void initialize() {
 		
-		btnProcurar = new JButton("PROCURAR");
-		btnProcurar.setBounds(560, 11, 121, 23);
-		panelAcoes.add(btnProcurar);
+		inicializarFontes();
+		frame = new JFrame();
+		frame.setBounds(100, 100, 800, 300);
+		frame.setLocationRelativeTo(null);
+		frame.getContentPane().setLayout(null);
+		frame.setTitle("Ala Médica");
 		
-		btnMudarPeso = new JButton("MUDAR PESO");
+		showInfo();
+		panelAc();
 		
-		btnMudarPeso.setBounds(10, 9, 142, 23);
-		panelAcoes.add(btnMudarPeso);
-		
-		btnMudarAltura = new JButton("MUDAR ALTURA");
-		btnMudarAltura.setBounds(10, 53, 142, 23);
-		panelAcoes.add(btnMudarAltura);
-		
-		btnMudarPercentual = new JButton("MUDAR PERCENTUAL");
-		btnMudarPercentual.setBounds(10, 102, 142, 23);
-		panelAcoes.add(btnMudarPercentual);
-		
-		btnMudarIdade = new JButton("MUDAR IDADE");
-		btnMudarIdade.setBounds(158, 102, 142, 23);
-		panelAcoes.add(btnMudarIdade);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		acoes();
+		  
+        ImageIcon bgImage = new ImageIcon(MedicoLoginTela.class.getResource("/imagens/AdminTela.png"));
+        JLabel labelBackground = new JLabel(bgImage);
+        labelBackground.setLocation(0, 0);
+        labelBackground.setSize(800, 300);
+        frame.getContentPane().add(labelBackground);
+
 	}
 }

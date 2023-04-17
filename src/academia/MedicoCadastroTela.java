@@ -134,7 +134,7 @@ public class MedicoCadastroTela {
         lblRetorna.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		Principal c1 = new Principal();
+        		PrincipalMed c1 = new PrincipalMed();
         		c1.setVisible(true);
         		frame.dispose();
             	
@@ -253,7 +253,7 @@ public class MedicoCadastroTela {
         lblRetorna.setForeground(new Color(255, 255, 255));
         lblRetorna.setBounds(36, 21, 41, 37);
         frame.getContentPane().add(lblRetorna);
-        ImageIcon logoImage = new ImageIcon(MedicoCadastroTela.class.getResource("/Imagens/logo.png"));
+        ImageIcon logoImage = new ImageIcon(MedicoCadastroTela.class.getResource("/Imagens/logoMed.png"));
         Image img = logoImage.getImage();
         Image imgRedimensionada = img.getScaledInstance(440,160, Image.SCALE_SMOOTH);
         ImageIcon logoRedimensionada = new ImageIcon(imgRedimensionada);
