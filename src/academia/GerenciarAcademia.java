@@ -937,7 +937,7 @@ public class GerenciarAcademia extends JFrame {
 		lblLiberado.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLiberado.setForeground(Color.WHITE);
 		lblLiberado.setFont(f1);
-		lblLiberado.setBounds(90, 350, 355, 19);
+		lblLiberado.setBounds(70, 350, 395, 19);
 		panelDespesas.add(lblLiberado);
 		
 		btnAtualizarSaldo = new JLabel();
