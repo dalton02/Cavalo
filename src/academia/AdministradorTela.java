@@ -171,55 +171,84 @@ public class AdministradorTela {
 		
 		btnMudarPeso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			if(gerarBusca(lerArquivo(txtUsuario.getText())) && medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
-				String x = JOptionPane.showInputDialog(null,"Insira novo peso");
-				modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
-				gerarBusca(lerArquivo(txtUsuario.getText()));
-				atualizarData();
-			}
+			if(gerarBusca(lerArquivo(txtUsuario.getText()))){
+				
+				if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
+					String x = JOptionPane.showInputDialog(null,"Insira novo peso");
+					modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+					gerarBusca(lerArquivo(txtUsuario.getText()));
+					atualizarData();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Plano do usuário não cobre alterações médicas");
+				}
 			else
-				JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
+				JOptionPane.showMessageDialog(null, "Usuario não existe");
 			}
 		});
 		
 		btnMudarIdade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(gerarBusca(lerArquivo(txtUsuario.getText()))&& medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
-					String x = JOptionPane.showInputDialog(null,"Insira nova idade");
-					modificarLinha(7, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
-					gerarBusca(lerArquivo(txtUsuario.getText()));
-					atualizarData();
+				if(gerarBusca(lerArquivo(txtUsuario.getText()))){
+					
+					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
+						String x = JOptionPane.showInputDialog(null,"Insira nova idade");
+						modificarLinha(7, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+						gerarBusca(lerArquivo(txtUsuario.getText()));
+						atualizarData();
+					
+					}
+					else 
+					JOptionPane.showMessageDialog(null, "Plano do usuário não cobre alterações médicas");
+						
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
+					JOptionPane.showMessageDialog(null, "Usuario não existe");
 			}
 		});
 		
 		btnMudarAltura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(gerarBusca(lerArquivo(txtUsuario.getText()))&& medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
-					String x = JOptionPane.showInputDialog(null,"Insira nova altura");
-					modificarLinha(6, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
-					gerarBusca(lerArquivo(txtUsuario.getText()));
-					atualizarData();
-				}
+				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
+
+					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
+						
+
+						String x = JOptionPane.showInputDialog(null,"Insira nova altura");
+						modificarLinha(6, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+						gerarBusca(lerArquivo(txtUsuario.getText()));
+						atualizarData();
+					}
+					else {
+
+						JOptionPane.showMessageDialog(null, "Plano do usuário não cobre alterações médicas");
+					}
+					}
 				else
-					JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
-				
+					JOptionPane.showMessageDialog(null, "Usuario não existe");
 			
 			}
 		});
 		
 		btnMudarPercentual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(gerarBusca(lerArquivo(txtUsuario.getText()))&& medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))){	
-					String x = JOptionPane.showInputDialog(null,"Insira novo percentual");
-					modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
-					gerarBusca(lerArquivo(txtUsuario.getText()));
-					atualizarData();
+				if(gerarBusca(lerArquivo(txtUsuario.getText()))){
+					
+					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
+
+						String x = JOptionPane.showInputDialog(null,"Insira novo percentual");
+						modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+						gerarBusca(lerArquivo(txtUsuario.getText()));
+						atualizarData();
+						
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Plano do usuário não cobre alterações médicas");
+					}
+					
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Usuario não existe ou plano não cobre");
+					JOptionPane.showMessageDialog(null, "Usuario não existe");
 				
 			
 			}
@@ -227,6 +256,9 @@ public class AdministradorTela {
 		
 		
 	}
+	
+
+	
 	
 	private void atualizarData() {
         LocalDate dataAtual = LocalDate.now();
