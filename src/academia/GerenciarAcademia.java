@@ -431,7 +431,7 @@ public class GerenciarAcademia extends JFrame {
 			    double valorPlano = user.getMeuPlano().getValor();
 				double valorPacote = user.getMeuPlano().getTipoPacote()[user.getMeuPlano().getMeuPacote()];
 				
-				if(dataAtual.isAfter(dataAnt)) {
+				if(dataAtual.isAfter(dataAnt) || dataAtual.isEqual(dataAnt)) {
 				
 				if(user.getMeuBanco().getSaldo()>(valorPacote+valorPlano)) {
 					
