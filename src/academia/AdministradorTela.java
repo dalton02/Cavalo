@@ -1,6 +1,7 @@
 package academia;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +17,9 @@ import classes.Usuario;
 import classes.Medico;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -361,6 +365,20 @@ public class AdministradorTela {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		acoes();
 		  
+		Image cursorImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor.png");
+        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "cursor");
+
+		Image cursorImage2 = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir")+"/src/imagens/cursor2.png");
+        Cursor customCursor2 = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage2, new Point(0, 0), "cursor");
+        
+        btnMudarAltura.setCursor(customCursor2);
+        btnMudarIdade.setCursor(customCursor2);
+        btnMudarPercentual.setCursor(customCursor2);
+        btnMudarPeso.setCursor(customCursor2);
+        btnProcurar.setCursor(customCursor2);
+		
+        frame.setCursor(customCursor);
+		
         ImageIcon bgImage = new ImageIcon(MedicoLoginTela.class.getResource("/imagens/AdminTela.png"));
         JLabel labelBackground = new JLabel(bgImage);
         labelBackground.setLocation(0, 0);

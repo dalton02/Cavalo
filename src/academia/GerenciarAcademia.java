@@ -202,7 +202,7 @@ public class GerenciarAcademia extends JFrame {
 		else if(Integer.valueOf(linhas.get(2))==2) 
 		plano = new PlanoCavalo();
 		else {
-		   plano = null; // Tratar caso em que não há um plano definido
+		   plano = null; // Tratar caso em que nÃ£o hÃ¡ um plano definido
 		}
 		
 			
@@ -354,9 +354,15 @@ public class GerenciarAcademia extends JFrame {
 					    	
 				    	JOptionPane.showMessageDialog(null, "Plano Cavalo - Pacote com acesso a personal trainer e equipe médica para analisar seu progresso durante os treinos\nCusto: R$"+qualquer.getValor());
 				    } else {
-				    	modificarLinha(2, String.valueOf(escolha));
-						atualizarTela();	
-				    }
+				    	
+				    	LocalDate c1 = LocalDate.now();
+						LocalDate dataPay = LocalDate.of(user.getDataPagamento().getAno(), user.getDataPagamento().getMes(),user.getDataPagamento().getDia());
+				    	if(dataPay.isBefore(c1)) {
+				    		modificarLinha(2, String.valueOf(escolha));
+							atualizarTela();	    		
+				    	}else
+				    	 JOptionPane.showMessageDialog(null, "Aguarde até o fim da sua mensalidade para atualizar seu plano");
+					}
 				}
 			}	
 		});
@@ -378,14 +384,26 @@ public class GerenciarAcademia extends JFrame {
 				
 				if (escolha != JOptionPane.CLOSED_OPTION) {
 				    if (escolha == 4) {
-				    	JOptionPane.showMessageDialog(null, "TREM-BALA - Pacote de pré e pós treinos\nCusto do plano atual: R$"+user.getMeuPlano().getTipoPacote()[1]);
+				    	JOptionPane.showMessageDialog(null, "TREM-BALA - Pacote de pós e pré treinos\nCusto do plano atual: R$"+user.getMeuPlano().getTipoPacote()[1]);
 				    } else if (escolha == 5) {
 				    	 JOptionPane.showMessageDialog(null, "FREAKY - Pacote com acesso a esteroides anabolizantes legais\nCusto do plano atual: R$ "+user.getMeuPlano().getTipoPacote()[2]);
 				    } else if (escolha == 6) {
 				    	 JOptionPane.showMessageDialog(null, "SUICIDA - Pacote com tudo incluso dos demais pacotes+vasodilatadores para potencializar seu treino\nCusto do plano atual: R$"+user.getMeuPlano().getTipoPacote()[3]);
 				    } else {
-				    	modificarLinha(3, String.valueOf(escolha));
-						atualizarTela();	
+
+						 
+						LocalDate c1 = LocalDate.now();
+						LocalDate dataPay = LocalDate.of(user.getDataPagamento().getAno(), user.getDataPagamento().getMes(),user.getDataPagamento().getDia());
+				    	if(dataPay.isBefore(c1)) {
+				    		modificarLinha(3, String.valueOf(escolha));
+							atualizarTela();	
+					    		
+				    	}else
+				    	 JOptionPane.showMessageDialog(null, "Aguarde até o fim da sua mensalidade para atualizar seu pacote");
+					    	
+				    	
+				    
+				    
 				    }
 				}
 			}
@@ -577,7 +595,7 @@ public class GerenciarAcademia extends JFrame {
 	       panelProgresso.add(panelLblStatusAnt);
 	       panelLblStatusAnt.setLayout(null);
 	       
-	       JLabel lblTitle1 = new JLabel("Quando você começou: ("+ user.getDataInicio().mostrarData() +")");
+	       JLabel lblTitle1 = new JLabel("Quando vocÃª comeÃ§ou: ("+ user.getDataInicio().mostrarData() +")");
 	       lblTitle1.setForeground(Color.WHITE);
 	       lblTitle1.setFont(f2);
 	       lblTitle1.setBounds(40, 11, 350, 36);
@@ -933,7 +951,7 @@ public class GerenciarAcademia extends JFrame {
 		if(user.isLiberado())
 		lblLiberado.setText("SUA MENSALIDADE FOI PAGA!!!");
 		else
-		lblLiberado.setText("SUA MENSALIDADE ESTÁ ATRASADA!!!");
+		lblLiberado.setText("SUA MENSALIDADE ESTÃ� ATRASADA!!!");
 		lblLiberado.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLiberado.setForeground(Color.WHITE);
 		lblLiberado.setFont(f1);
@@ -965,7 +983,7 @@ public class GerenciarAcademia extends JFrame {
 		panelSobre.add(lblTitle);
 		
 		JTextArea txtSobre = new JTextArea();
-		txtSobre.setText("A Cavalo de Pau Academia não é apenas um lugar para levantar peso,\r\nmas um lugar que vai abraçar o usuário com uma interface límpida\r\ne de facil leitura para organizar seus dados bancarios, seu plano de \r\nacademia e pacotes.");
+		txtSobre.setText("A Cavalo de Pau Academia nÃ£o Ã© apenas um lugar para levantar peso,\r\nmas um lugar que vai abraÃ§ar o usuÃ¡rio com uma interface lÃ­mpida\r\ne de facil leitura para organizar seus dados bancarios, seu plano de \r\nacademia e pacotes.");
 		txtSobre.setBounds(10, 79, 630, 266);
 		txtSobre.setForeground(Color.WHITE);
 		txtSobre.setOpaque(false);
@@ -976,7 +994,7 @@ public class GerenciarAcademia extends JFrame {
 		panelSobre.add(txtSobre);
 		
 		lblTitle2 = new JLabel();
-		lblTitle2.setText("<html>\r\n@COPYRIGHT\r\n<br/>\r\nDALTON GOMES LOBATO\r\n<br/>\r\nVINICIUS INÁCIO\r\n\r\n</html>");
+		lblTitle2.setText("<html>\r\n@COPYRIGHT\r\n<br/>\r\nDALTON GOMES LOBATO\r\n<br/>\r\nVINICIUS INÃ�CIO\r\n\r\n</html>");
 		lblTitle2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTitle2.setForeground(Color.LIGHT_GRAY);
 		lblTitle2.setFont(new Font("DejaVu Sans", Font.ITALIC, 10));
