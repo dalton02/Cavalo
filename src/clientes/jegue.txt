@@ -3,7 +3,7 @@ jegue
 1
 3
 NU Bank Seguros
-999727.01
+666.0
 123
 56
 M

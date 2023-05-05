@@ -172,10 +172,7 @@ public class MedicoLoginTela {
 						e1.printStackTrace();
 					}
 					if(liberado) {
-						Medico med = new Medico();
-						med.setNome(usernameField.getText());
-						med.setSenha(txtInsiraSuaSenha.getText());
-			    		AdministradorTela c1 = new AdministradorTela(med);
+			    		AdministradorTela c1 = new AdministradorTela(arquivo);
 			    		c1.frame.setVisible(true);
 			    		frame.dispose();		
 					}		

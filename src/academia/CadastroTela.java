@@ -201,6 +201,7 @@ public class CadastroTela {
 		    				sexo = 'F';
 		    			
 		    			salvarUsuario();
+		    			JOptionPane.showMessageDialog(null, "Usuário registrado com sucesso!!!!");
 		    			Principal c1 = new Principal();
 		    			c1.setVisible(true);
 		    			frame.dispose();

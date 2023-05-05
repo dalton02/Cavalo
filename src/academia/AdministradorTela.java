@@ -13,8 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import classes.Usuario;
-
+import classes.Cliente;
 import classes.Medico;
+import classes.Tradutor;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Image;
@@ -47,11 +49,15 @@ public class AdministradorTela {
 	private JButton btnMudarIdade;
 	private JButton btnMudarPeso;
 	private JButton btnMudarPercentual;
+	private JButton btnSobreUser;
 	private Medico medico;
+	private Cliente cliente;
+	private Tradutor traduzir;
 	private Font f1,f2,f3;
 	
-	public AdministradorTela(Medico medico) {
-		this.medico = medico;
+	public AdministradorTela(File arquivo) {
+		traduzir = new Tradutor();
+		medico = traduzir.inicializarMedico(arquivo);
 		initialize();
 	}
 	private void inicializarFontes() {
@@ -122,13 +128,14 @@ public class AdministradorTela {
 		if(!arquivo.exists()) {
         	
         	JOptionPane.showMessageDialog(null,"Esse usuario não existe");
-        	
+
+    		cliente = traduzir.inicializarCliente(null);
         }
         else {
-		
 		try {
 			FileReader userReader = new FileReader(arquivo);
 			BufferedReader userBuffer = new BufferedReader(userReader);
+    		cliente = traduzir.inicializarCliente(arquivo);
 			String linha;
             while ((linha = userBuffer.readLine()) != null) {
 					linhas.add(linha);
@@ -156,7 +163,9 @@ public class AdministradorTela {
 				+ "KG\r\nAltura:  "+dados.get(6)
 				+ " CENTIMETROS\r\nIdade:   "+dados.get(7)
 				+ " ANOS\r\nPercentual:   "+dados.get(12)+"%");
-				return true;
+			
+		return true;
+				
 		}
 		else
 			return false;
@@ -166,6 +175,13 @@ public class AdministradorTela {
 	
 	private void acoes() {
 		
+		btnSobreUser.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				cliente.exibirInfo();
+			}
+			
+		});
 
 		btnProcurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -320,6 +336,12 @@ public class AdministradorTela {
 		btnMudarIdade.setBackground(Color.pink);
 		btnMudarIdade.setFont(f2);
 		panelAcoes.add(btnMudarIdade);
+		
+		btnSobreUser = new JButton("SOBRE USUÁRIO");
+		btnSobreUser.setFont(f2);
+		btnSobreUser.setBackground(Color.PINK);
+		btnSobreUser.setBounds(612, 102, 142, 23);
+		panelAcoes.add(btnSobreUser);
 	
 	}
 	private void showInfo() {

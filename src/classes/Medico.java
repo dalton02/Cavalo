@@ -1,6 +1,6 @@
 package classes;
 
-public class Medico extends Usuario {
+public class Medico extends Usuario{
 
 	public boolean verificarPlano(int seuPlano) {
 		
@@ -15,6 +15,13 @@ public class Medico extends Usuario {
 		else
 		return false;
 		
+	}
+	
+	@Override
+	public void exibirInfo() {
+	// TODO Auto-generated method stub
+	super.exibirInfo();
+	
 	}
 	
 }

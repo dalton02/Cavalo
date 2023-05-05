@@ -95,7 +95,8 @@ public class GerenciarAcademia extends JFrame {
 	
 	public GerenciarAcademia(File arquivo){
 		userFile = arquivo;
-		inicializarUsuario();
+		Tradutor c1 = new Tradutor();
+		user = c1.inicializarCliente(arquivo);
 		init();
 	}
 	
@@ -121,121 +122,7 @@ public class GerenciarAcademia extends JFrame {
 
 		
 	}
-	
-	private void inicializarUsuario(){
-		user = new Cliente();
 		
-		Banco banco = new Banco();
-		Status status = new Status();
-		Data dataInicio = new Data();
-		Data dataFinal = new Data();
-		Data dataPagamento = new Data();
-		
-		ArrayList<String> linhas = new ArrayList<>();
-	    
-		try {
-			userReader = new FileReader(userFile);
-			userBuffer = new BufferedReader(userReader);
-			String linha;
-            while ((linha = userBuffer.readLine()) != null) {
-					linhas.add(linha);
-            }
-            userReader.close();
-            userBuffer.close();
-            
-		} 
-		
-		
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		String dataS = String.valueOf(linhas.get(13));
-		int dia = Integer.valueOf(dataS.substring(0, 2));
-		int mes = Integer.valueOf(dataS.substring(3, 5));
-		int ano = Integer.valueOf(dataS.substring(6, 10));
-		
-		dataInicio.setDia(dia);
-		dataInicio.setMes(mes);
-		dataInicio.setAno(ano);
-		
-		dataS = String.valueOf(linhas.get(14));
-		dia = Integer.valueOf(dataS.substring(0, 2));
-		mes = Integer.valueOf(dataS.substring(3, 5));
-		ano = Integer.valueOf(dataS.substring(6, 10));
-
-		dataFinal.setDia(dia);
-		dataFinal.setMes(mes);
-		dataFinal.setAno(ano);
-		
-		dataS = String.valueOf(linhas.get(15));
-		dia = Integer.valueOf(dataS.substring(0, 2));
-		mes = Integer.valueOf(dataS.substring(3, 5));
-		ano = Integer.valueOf(dataS.substring(6, 10));
-
-		
-		dataPagamento.setDia(dia);
-		dataPagamento.setAno(ano);
-		dataPagamento.setMes(mes);
-		
-			 
-		LocalDate c1 = LocalDate.now();
-		LocalDate dataPay = LocalDate.of(ano, mes, dia);
-		//Caso a data de pagamento tenha expirado
-		if(dataPay.isBefore(c1) || dataPay.equals(c1)) {
-			user.setLiberado(false);
-		}
-		else
-			user.setLiberado(true);
-		
-		
-		System.out.println("Mensalidade foi paga: "+user.isLiberado());
-		Plano plano;
-		
-		if(Integer.valueOf(linhas.get(2))==0) 
-		plano = new PlanoFrango();
-		else if(Integer.valueOf(linhas.get(2))==1) 
-		plano = new PlanoMaromba();
-		else if(Integer.valueOf(linhas.get(2))==2) 
-		plano = new PlanoCavalo();
-		else {
-		   plano = null; // Tratar caso em que nÃ£o hÃ¡ um plano definido
-		}
-		
-			
-		user.setMeuBanco(banco);
-		user.setMeuPlano((Plano) plano);
-		user.setMeuStatus(status);
-		user.setDataInicio(dataInicio);
-		user.setDataFinal(dataFinal);
-		user.setDataPagamento(dataPagamento);
-		user.setNome(linhas.get(0));
-		user.setSenha(linhas.get(1));
-		user.getMeuPlano().setMeuPacote(Integer.valueOf(linhas.get(3)));
-		user.getMeuBanco().setSaldo(Double.valueOf(linhas.get(5)));
-		user.getMeuBanco().setBanco(linhas.get(4));
-		user.getMeuStatus().setAltura(Integer.valueOf(linhas.get(6)));
-		user.getMeuStatus().setIdade(Integer.valueOf(linhas.get(7)));
-		user.getMeuStatus().setSexo(linhas.get(8).charAt(0));
-		user.getMeuStatus().setPeso(0,Double.valueOf(linhas.get(9)));
-		user.getMeuStatus().setGordura(0, Double.valueOf(linhas.get(10)));
-		
-		if(linhas.size()<=11) {
-			user.getMeuStatus().setGordura(1, Double.valueOf(linhas.get(10)));
-			user.getMeuStatus().setPeso(1, Double.valueOf(linhas.get(9)));
-		}
-		else {		
-			user.getMeuStatus().setGordura(1, Double.valueOf(linhas.get(12)));
-			user.getMeuStatus().setPeso(1, Double.valueOf(linhas.get(11)));
-		}
-		
-		user.getMeuPlano().aplicarDesconto();
-		
-	}
-	
 	private void acoesMenu() {
 		 lblPlano.addMouseListener(new MouseAdapter() {
 	        	@Override
@@ -595,7 +482,7 @@ public class GerenciarAcademia extends JFrame {
 	       panelProgresso.add(panelLblStatusAnt);
 	       panelLblStatusAnt.setLayout(null);
 	       
-	       JLabel lblTitle1 = new JLabel("Quando vocÃª comeÃ§ou: ("+ user.getDataInicio().mostrarData() +")");
+	       JLabel lblTitle1 = new JLabel("Quando você começou: ("+ user.getDataInicio().mostrarData() +")");
 	       lblTitle1.setForeground(Color.WHITE);
 	       lblTitle1.setFont(f2);
 	       lblTitle1.setBounds(40, 11, 350, 36);
@@ -983,7 +870,7 @@ public class GerenciarAcademia extends JFrame {
 		panelSobre.add(lblTitle);
 		
 		JTextArea txtSobre = new JTextArea();
-		txtSobre.setText("A Cavalo de Pau Academia nÃ£o Ã© apenas um lugar para levantar peso,\r\nmas um lugar que vai abraÃ§ar o usuÃ¡rio com uma interface lÃ­mpida\r\ne de facil leitura para organizar seus dados bancarios, seu plano de \r\nacademia e pacotes.");
+		txtSobre.setText("A Cavalo de Pau Academia não é apenas um lugar para levantar peso,\r\nmas um lugar que vai abraçar o usuário com uma interface límpida\r\ne de facil leitura para organizar seus dados bancarios, seu plano de \r\nacademia e pacotes.");
 		txtSobre.setBounds(10, 79, 630, 266);
 		txtSobre.setForeground(Color.WHITE);
 		txtSobre.setOpaque(false);
@@ -994,7 +881,7 @@ public class GerenciarAcademia extends JFrame {
 		panelSobre.add(txtSobre);
 		
 		lblTitle2 = new JLabel();
-		lblTitle2.setText("<html>\r\n@COPYRIGHT\r\n<br/>\r\nDALTON GOMES LOBATO\r\n<br/>\r\nVINICIUS INÃ�CIO\r\n\r\n</html>");
+		lblTitle2.setText("<html>\r\n@COPYRIGHT\r\n<br/>\r\nDALTON GOMES LOBATO\r\n<br/>\r\nVINICIUS INÁCIO\r\n\r\n</html>");
 		lblTitle2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTitle2.setForeground(Color.LIGHT_GRAY);
 		lblTitle2.setFont(new Font("DejaVu Sans", Font.ITALIC, 10));

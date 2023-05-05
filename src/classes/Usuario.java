@@ -1,6 +1,8 @@
 package classes;
 
-public abstract class Usuario {
+import javax.swing.JOptionPane;
+
+public abstract class Usuario implements Exibivel {
 
 	private String nome;
 	private String senha;
@@ -19,6 +21,12 @@ public abstract class Usuario {
 		this.senha = senha;
 	}
 	
-	public class Medico extends Usuario{}
+	@Override
+	public void exibirInfo() {
+		
+		JOptionPane.showMessageDialog(null, "Usuario: "+nome+"\nSenha:"+senha);
+		
+	}
+	
 	
 }

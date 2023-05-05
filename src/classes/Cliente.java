@@ -1,5 +1,7 @@
 package classes;
 
+import javax.swing.JOptionPane;
+
 public class Cliente extends Usuario{
 
 		private Banco meuBanco;
@@ -60,6 +62,15 @@ public class Cliente extends Usuario{
 
 		public void setLiberado(boolean liberado) {
 			this.liberado = liberado;
+		}
+		
+		@Override
+		public void exibirInfo() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(null, 
+		"Usuario: "+super.getNome()+"\nPlano Atual: "+meuPlano.getMeuPlano()+
+		"\nPacote Atual: "+meuPlano.getMeuPacote()+"\nData de Pagamento: "+dataPagamento.mostrarData());
+		
 		}
 		
 	}

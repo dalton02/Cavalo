@@ -12,6 +12,7 @@ public abstract class Plano {
 	}
 	
 	public abstract void aplicarDesconto();
+	
 
 	public double[] getTipoPacote() {
 		return tipoPacote;
