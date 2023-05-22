@@ -244,7 +244,7 @@ public class GerenciarAcademia extends JFrame {
 				    	
 				    	LocalDate c1 = LocalDate.now();
 						LocalDate dataPay = LocalDate.of(user.getDataPagamento().getAno(), user.getDataPagamento().getMes(),user.getDataPagamento().getDia());
-				    	if(dataPay.isBefore(c1)) {
+				    	if(dataPay.isBefore(c1) || dataPay.isEqual(c1)) {
 				    		modificarLinha(2, String.valueOf(escolha));
 							atualizarTela();	    		
 				    	}else
@@ -281,7 +281,7 @@ public class GerenciarAcademia extends JFrame {
 						 
 						LocalDate c1 = LocalDate.now();
 						LocalDate dataPay = LocalDate.of(user.getDataPagamento().getAno(), user.getDataPagamento().getMes(),user.getDataPagamento().getDia());
-				    	if(dataPay.isBefore(c1)) {
+				    	if(dataPay.isBefore(c1)|| dataPay.isEqual(c1)) {
 				    		modificarLinha(3, String.valueOf(escolha));
 							atualizarTela();	
 					    		
@@ -838,7 +838,7 @@ public class GerenciarAcademia extends JFrame {
 		if(user.isLiberado())
 		lblLiberado.setText("SUA MENSALIDADE FOI PAGA!!!");
 		else
-		lblLiberado.setText("SUA MENSALIDADE ESTÃ� ATRASADA!!!");
+		lblLiberado.setText("SUA MENSALIDADE ESTÁ ATRASADA!!!");
 		lblLiberado.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLiberado.setForeground(Color.WHITE);
 		lblLiberado.setFont(f1);

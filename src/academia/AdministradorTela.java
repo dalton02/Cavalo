@@ -50,6 +50,7 @@ public class AdministradorTela {
 	private JButton btnMudarPeso;
 	private JButton btnMudarPercentual;
 	private JButton btnSobreUser;
+	private JButton btnSair;
 	private Medico medico;
 	private Cliente cliente;
 	private Tradutor traduzir;
@@ -274,7 +275,19 @@ public class AdministradorTela {
 			}
 		});
 		
-		
+		btnSair.addActionListener(new ActionListener(){
+			
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				PrincipalMed c1 = new PrincipalMed();
+				c1.setVisible(true);
+				frame.dispose();
+				
+			}
+			
+			
+		});
 	}
 	
 
@@ -342,6 +355,12 @@ public class AdministradorTela {
 		btnSobreUser.setBackground(Color.PINK);
 		btnSobreUser.setBounds(612, 102, 142, 23);
 		panelAcoes.add(btnSobreUser);
+		
+		btnSair = new JButton("SAIR");
+		btnSair.setFont(f2);
+		btnSair.setBackground(Color.PINK);
+		btnSair.setBounds(612, 71, 142, 23);
+		panelAcoes.add(btnSair);
 	
 	}
 	private void showInfo() {
