@@ -346,7 +346,7 @@ public class GerenciarAcademia extends JFrame {
 
 			        LocalDate dataNova = LocalDate.of(dataAtual.getYear(), dataAtual.getMonthValue()+1, dataAtual.getDayOfMonth());
 			       modificarLinha(5, String.valueOf(user.getMeuBanco().getSaldo()-(valorPacote+valorPlano)));
-					modificarLinha(15,dataNova.format(formatter));
+					modificarLinha(17,dataNova.format(formatter));
 					JOptionPane.showMessageDialog(null, "Mensalidade Paga!!!");
 					atualizarTela();
 				

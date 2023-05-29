@@ -84,7 +84,7 @@ public class AdministradorTela {
 		
 	}
 
-
+//11 a 14
 	private void modificarLinha(int linhaModificada,String textoNovo,File userFile) {
 		
 		try {
@@ -160,10 +160,10 @@ public class AdministradorTela {
 	private boolean gerarBusca(ArrayList<String> dados) {
 		if(!dados.isEmpty()) {
 		txtrUsuarioPesoAltura.setText("Usuario:   "+dados.get(0)
-				+ "\r\nPeso:   " +dados.get(11)
-				+ "KG\r\nAltura:  "+dados.get(6)
-				+ " CENTIMETROS\r\nIdade:   "+dados.get(7)
-				+ " ANOS\r\nPercentual:   "+dados.get(12)+"%");
+				+ "\r\nPeso:   " +dados.get(13)
+				+ "KG\r\nAltura:  "+dados.get(11)
+				+ " CENTIMETROS\r\nIdade:   "+dados.get(12)
+				+ " ANOS\r\nPercentual:   "+dados.get(14)+"%");
 			
 		return true;
 				
@@ -196,7 +196,7 @@ public class AdministradorTela {
 				
 				if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
 					String x = JOptionPane.showInputDialog(null,"Insira novo peso");
-					modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+					modificarLinha(13, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 					gerarBusca(lerArquivo(txtUsuario.getText()));
 					atualizarData();
 				}
@@ -214,7 +214,7 @@ public class AdministradorTela {
 					
 					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
 						String x = JOptionPane.showInputDialog(null,"Insira nova idade");
-						modificarLinha(7, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+						modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 						gerarBusca(lerArquivo(txtUsuario.getText()));
 						atualizarData();
 					
@@ -230,13 +230,13 @@ public class AdministradorTela {
 		
 		btnMudarAltura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(gerarBusca(lerArquivo(txtUsuario.getText()))){	
+				if(gerarBusca(lerArquivo(txtUsuario.getText()))){
 
 					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
 						
 
 						String x = JOptionPane.showInputDialog(null,"Insira nova altura");
-						modificarLinha(6, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+						modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 						gerarBusca(lerArquivo(txtUsuario.getText()));
 						atualizarData();
 					}
@@ -258,7 +258,7 @@ public class AdministradorTela {
 					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
 
 						String x = JOptionPane.showInputDialog(null,"Insira novo percentual");
-						modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+						modificarLinha(14, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 						gerarBusca(lerArquivo(txtUsuario.getText()));
 						atualizarData();
 						
@@ -297,7 +297,7 @@ public class AdministradorTela {
         LocalDate dataAtual = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		gerarBusca(lerArquivo(txtUsuario.getText()));
-		modificarLinha(14, formatter.format(dataAtual) , new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+		modificarLinha(15, formatter.format(dataAtual) , new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 	}
 	
 	private void panelAc() {

@@ -78,7 +78,7 @@ public class Tradutor {
 		}
 		
 		
-		String dataS = String.valueOf(linhas.get(13));
+		String dataS = String.valueOf(linhas.get(15));
 		int dia = Integer.valueOf(dataS.substring(0, 2));
 		int mes = Integer.valueOf(dataS.substring(3, 5));
 		int ano = Integer.valueOf(dataS.substring(6, 10));
@@ -87,7 +87,7 @@ public class Tradutor {
 		dataInicio.setMes(mes);
 		dataInicio.setAno(ano);
 		
-		dataS = String.valueOf(linhas.get(14));
+		dataS = String.valueOf(linhas.get(16));
 		dia = Integer.valueOf(dataS.substring(0, 2));
 		mes = Integer.valueOf(dataS.substring(3, 5));
 		ano = Integer.valueOf(dataS.substring(6, 10));
@@ -96,7 +96,7 @@ public class Tradutor {
 		dataFinal.setMes(mes);
 		dataFinal.setAno(ano);
 		
-		dataS = String.valueOf(linhas.get(15));
+		dataS = String.valueOf(linhas.get(17));
 		dia = Integer.valueOf(dataS.substring(0, 2));
 		mes = Integer.valueOf(dataS.substring(3, 5));
 		ano = Integer.valueOf(dataS.substring(6, 10));
@@ -137,23 +137,20 @@ public class Tradutor {
 		user.setDataPagamento(dataPagamento);
 		user.setNome(linhas.get(0));
 		user.setSenha(linhas.get(1));
+		
 		user.getMeuPlano().setMeuPacote(Integer.valueOf(linhas.get(3)));
 		user.getMeuBanco().setSaldo(Double.valueOf(linhas.get(5)));
 		user.getMeuBanco().setBanco(linhas.get(4));
-		user.getMeuStatus().setAltura(Integer.valueOf(linhas.get(6)));
-		user.getMeuStatus().setIdade(Integer.valueOf(linhas.get(7)));
+		
+		user.getMeuStatus().setAltura(0,Integer.valueOf(linhas.get(6)));
+		user.getMeuStatus().setIdade(0,Integer.valueOf(linhas.get(7)));
 		user.getMeuStatus().setSexo(linhas.get(8).charAt(0));
 		user.getMeuStatus().setPeso(0,Double.valueOf(linhas.get(9)));
 		user.getMeuStatus().setGordura(0, Double.valueOf(linhas.get(10)));
-		
-		if(linhas.size()<=11) {
-			user.getMeuStatus().setGordura(1, Double.valueOf(linhas.get(10)));
-			user.getMeuStatus().setPeso(1, Double.valueOf(linhas.get(9)));
-		}
-		else {		
-			user.getMeuStatus().setGordura(1, Double.valueOf(linhas.get(12)));
-			user.getMeuStatus().setPeso(1, Double.valueOf(linhas.get(11)));
-		}
+		user.getMeuStatus().setAltura(1,Integer.valueOf(linhas.get(11)));
+		user.getMeuStatus().setIdade(1,Integer.valueOf(linhas.get(12)));
+		user.getMeuStatus().setPeso(1, Double.valueOf(linhas.get(13)));
+		user.getMeuStatus().setGordura(1, Double.valueOf(linhas.get(14)));
 		
 		user.getMeuPlano().aplicarDesconto();
 	

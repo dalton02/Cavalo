@@ -18,10 +18,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.text.*;
 
+import javax.swing.text.NumberFormatter;
 public class CadastroTela {
 
     public JFrame frame;
@@ -41,15 +44,16 @@ public class CadastroTela {
     private JRadioButton radioMaromba;
     private JRadioButton radioGiga;
     private JTextField txtBanco;
-    private JTextField txtAltura;
-    private JTextField txtSaldo;
-    private JTextField txtIdade;
-    private JTextField txtPeso;
+    private JFormattedTextField txtAltura;
+    private JFormattedTextField txtSaldo;
+    private JFormattedTextField txtIdade;
+    private JFormattedTextField txtPeso;
     private  JRadioButton radioM;
     private  JRadioButton radioF;
+    private  JRadioButton radioN;
     private int tipoPlano;
     private char sexo;
-    private JTextField txtPercentual;
+    private JFormattedTextField txtPercentual;
     
 	private Font f1,f2,f3,f4;
     
@@ -88,7 +92,6 @@ public class CadastroTela {
     
     private void salvarUsuario(){
     	
-
         LocalDate dataAtual = LocalDate.now();
 
         // Formatar a data atual
@@ -109,6 +112,8 @@ public class CadastroTela {
 	            escritor.write(sexo+"\n");
 	            escritor.write(txtPeso.getText()+"\n");
 	            escritor.write(txtPercentual.getText()+"\n");
+	            escritor.write(txtAltura.getText()+"\n");
+	            escritor.write(txtIdade.getText()+"\n");
 	            escritor.write(txtPeso.getText()+"\n");
 	            escritor.write(txtPercentual.getText()+"\n");
 	            escritor.write(dataAtual.format(formatter)+"\n");
@@ -199,6 +204,8 @@ public class CadastroTela {
 		    				sexo = 'M';
 		    			else if(radioF.isSelected())
 		    				sexo = 'F';
+		    			else
+		    				sexo = 'N';
 		    			
 		    			salvarUsuario();
 		    			JOptionPane.showMessageDialog(null, "Usuário registrado com sucesso!!!!");
@@ -259,16 +266,25 @@ public class CadastroTela {
 
     			radioM.setSelected(true);
     			radioF.setSelected(false);
+    			radioN.setSelected(false);
          	}
          });
         radioF.addActionListener(new ActionListener() {
          	public void actionPerformed(ActionEvent e) {
 
+    			radioN.setSelected(false);
     			radioF.setSelected(true);
     			radioM.setSelected(false);
          	}
          });    
-    }
+        radioN.addActionListener(new ActionListener() {
+         	public void actionPerformed(ActionEvent e) {
+
+    			radioN.setSelected(true);
+    			radioF.setSelected(false);
+    			radioM.setSelected(false);
+         	}
+         });     }
     
     
     
@@ -330,7 +346,23 @@ public class CadastroTela {
          lblSexo.setBounds(30, 127, 113, 27);
          layer4.add(lblSexo);
          
-         txtAltura = new JTextField();
+
+         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+         symbols.setDecimalSeparator('.'); // Define a vírgula como símbolo decimal
+         
+         NumberFormat format = new DecimalFormat("0");
+         NumberFormat format2 = new DecimalFormat("#00.00",symbols);
+         format.setMaximumIntegerDigits(3);  
+         NumberFormatter formatter = new NumberFormatter(format);
+         NumberFormatter formatter2 = new NumberFormatter(format2);
+         
+         formatter.setValueClass(Long.class); // Define a classe de valor como Double
+         formatter.setAllowsInvalid(false); // Impede valores inválidos
+         formatter2.setValueClass(Double.class); // Define a classe de valor como Double
+         formatter2.setAllowsInvalid(false); // Impede valores inválidos
+
+         
+         txtAltura = new JFormattedTextField(formatter);
          txtAltura.setToolTipText("Insira sua altura");
          txtAltura.setForeground(Color.BLACK);
          txtAltura.setFont(f2);
@@ -374,6 +406,17 @@ public class CadastroTela {
          radioF.setBorderPainted(false);
          radioF.setFocusable(false);
          layer4.add(radioF);
+
+         radioN = new JRadioButton("Não Binarie");
+         radioN.setHorizontalAlignment(SwingConstants.LEFT);
+         radioN.setFont(f2);
+         radioN.setForeground(Color.WHITE);
+         radioN.setBounds(150, 193, 153, 23);
+         radioN.setBackground(new Color(0,0,0,0));
+         radioN.setOpaque(false);
+         radioN.setBorderPainted(false);
+         radioN.setFocusable(false);
+         layer4.add(radioN);
          
          JLabel lblPeso = new JLabel("Peso:");
          lblPeso.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -389,7 +432,7 @@ public class CadastroTela {
          lblIdade.setBounds(452, 71, 81, 27);
          layer4.add(lblIdade);
          
-         txtIdade = new JTextField();
+         txtIdade = new JFormattedTextField(formatter);
          txtIdade.setToolTipText("Insira sua altura");
          txtIdade.setOpaque(false);
          txtIdade.setForeground(Color.BLACK);
@@ -404,7 +447,7 @@ public class CadastroTela {
          textBack2.setBounds(542, 75, 137, 24);
          layer4.add(textBack2);
          
-         txtPeso = new JTextField();
+         txtPeso = new JFormattedTextField(formatter2);
          txtPeso.setToolTipText("Insira sua altura");
          txtPeso.setOpaque(false);
          txtPeso.setForeground(Color.BLACK);
@@ -426,7 +469,7 @@ public class CadastroTela {
          lblPercentualGordura.setBounds(336, 170, 197, 27);
          layer4.add(lblPercentualGordura);
          
-         txtPercentual = new JTextField();
+         txtPercentual = new JFormattedTextField(formatter2);
          txtPercentual.setToolTipText("Insira sua altura");
          txtPercentual.setOpaque(false);
          txtPercentual.setForeground(Color.BLACK);
@@ -603,8 +646,19 @@ public class CadastroTela {
          txtBanco.setOpaque(false);
          txtBanco.setBorder(null);
          layer2.add(txtBanco);
+        
+         DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+         symbols.setDecimalSeparator('.'); // Define a vírgula como símbolo decimal
+         symbols.setGroupingSeparator('.'); // Define o ponto como separador de milhares
+       
+         NumberFormat format2 = new DecimalFormat("#0.00",symbols);
+         NumberFormatter formatter2 = new NumberFormatter(format2);
          
-         txtSaldo = new JTextField();
+         formatter2.setValueClass(Double.class); // Define a classe de valor como Double
+         formatter2.setAllowsInvalid(false); // Impede valores inválidos
+
+         
+         txtSaldo = new JFormattedTextField(formatter2);
          txtSaldo.setToolTipText("Insira seu usuário");
          txtSaldo.setText("299.99");
          txtSaldo.setForeground(Color.BLACK);
