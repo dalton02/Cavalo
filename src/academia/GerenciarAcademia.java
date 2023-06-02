@@ -870,7 +870,16 @@ public class GerenciarAcademia extends JFrame {
 		panelSobre.add(lblTitle);
 		
 		JTextArea txtSobre = new JTextArea();
-		txtSobre.setText("A Cavalo de Pau Academia não é apenas um lugar para levantar peso,\r\nmas um lugar que vai abraçar o usuário com uma interface límpida\r\ne de facil leitura para organizar seus dados bancarios, seu plano de \r\nacademia e pacotes.");
+		txtSobre.setText("A Cavalo de Pau Academia não é uma simples academia,\n"
+				      + "não é uma academia dentre todas as outras que temos \n"
+				      + "no mercado, aqui não tem papinho de faltar treino, \n"
+				      + "de não fazer a série completa, aqui temos comprometimento\n"
+				      + "com o frango, porque é isso q você é até entrar na nossa academia,\n"
+				      + "disponibilizamos diversas opções para melhorar seu desempenho\n"
+				      + "e finalmente virar um CAVALO como sempre quis. \n"
+				      + "Somos as pessoas que mais confiam em você e na sua capacidade,\n"
+				      + "mas no final de tudo sabemos que \n"
+				      + "a verdadeira academia são os amigos que fazemos no caminho");
 		txtSobre.setBounds(10, 79, 630, 266);
 		txtSobre.setForeground(Color.WHITE);
 		txtSobre.setOpaque(false);
