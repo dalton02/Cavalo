@@ -196,9 +196,18 @@ public class AdministradorTela {
 				
 				if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
 					String x = JOptionPane.showInputDialog(null,"Insira novo peso");
-					modificarLinha(13, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
-					gerarBusca(lerArquivo(txtUsuario.getText()));
-					atualizarData();
+					try {
+						double y = Double.parseDouble(x);
+						modificarLinha(13, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
+						gerarBusca(lerArquivo(txtUsuario.getText()));
+						atualizarData();
+							
+					}catch(NumberFormatException a) {
+						JOptionPane.showMessageDialog(null,"Insira um valor real");
+					}
+					
+				
+				
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Plano do usuário não cobre alterações médicas");
@@ -214,9 +223,15 @@ public class AdministradorTela {
 					
 					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
 						String x = JOptionPane.showInputDialog(null,"Insira nova idade");
+						try {
+						int y = Integer.parseInt(x);
 						modificarLinha(12, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 						gerarBusca(lerArquivo(txtUsuario.getText()));
 						atualizarData();
+						}
+						catch(NumberFormatException a) {
+							JOptionPane.showMessageDialog(null,"Insira um valor real");
+						}
 					
 					}
 					else 
@@ -236,9 +251,17 @@ public class AdministradorTela {
 						
 
 						String x = JOptionPane.showInputDialog(null,"Insira nova altura");
+						
+						try {
+						int y = Integer.parseInt(x);
 						modificarLinha(11, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 						gerarBusca(lerArquivo(txtUsuario.getText()));
 						atualizarData();
+						}
+						catch(NumberFormatException a) {
+							JOptionPane.showMessageDialog(null,"Insira um valor real");
+						}
+					
 					}
 					else {
 
@@ -258,9 +281,15 @@ public class AdministradorTela {
 					if(medico.verificarPlano(Integer.valueOf((lerArquivo(txtUsuario.getText()).get(2))))) {
 
 						String x = JOptionPane.showInputDialog(null,"Insira novo percentual");
+						try {
+						double y = Double.parseDouble(x);
 						modificarLinha(14, x, new File(System.getProperty("user.dir")+"/src/clientes/"+txtUsuario.getText()+".txt"));
 						gerarBusca(lerArquivo(txtUsuario.getText()));
 						atualizarData();
+						}
+						catch(NumberFormatException a) {
+							JOptionPane.showMessageDialog(null,"Insira um valor real");
+						}
 						
 					}
 					else {
