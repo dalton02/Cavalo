@@ -84,7 +84,6 @@ public class AdministradorTela {
 		
 	}
 
-//11 a 14
 	private void modificarLinha(int linhaModificada,String textoNovo,File userFile) {
 		
 		try {
@@ -128,9 +127,7 @@ public class AdministradorTela {
 
 		if(!arquivo.exists()) {
         	
-        	JOptionPane.showMessageDialog(null,"Esse usuario não existe");
-
-    		cliente = traduzir.inicializarCliente(null);
+        	JOptionPane.showMessageDialog(null,"Esse arquivo não existe");
         }
         else {
 		try {
@@ -158,6 +155,7 @@ public class AdministradorTela {
 	}
 	
 	private boolean gerarBusca(ArrayList<String> dados) {
+		
 		if(!dados.isEmpty()) {
 		txtrUsuarioPesoAltura.setText("Usuario:   "+dados.get(0)
 				+ "\r\nPeso:   " +dados.get(13)
@@ -166,10 +164,9 @@ public class AdministradorTela {
 				+ " ANOS\r\nPercentual:   "+dados.get(14)+"%");
 			
 		return true;
-				
 		}
 		else
-			return false;
+		return false;
 	
 	}
 	

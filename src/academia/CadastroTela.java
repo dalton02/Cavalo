@@ -638,7 +638,6 @@ public class CadastroTela {
          
          txtBanco = new JTextField();
          txtBanco.setToolTipText("Insira seu usuário");
-         txtBanco.setText("NU Bank Seguros");
          txtBanco.setForeground(Color.BLACK);
          txtBanco.setFont(f2);
          txtBanco.setBackground(new Color(200, 255, 83,0));
@@ -660,7 +659,6 @@ public class CadastroTela {
          
          txtSaldo = new JFormattedTextField(formatter2);
          txtSaldo.setToolTipText("Insira seu usuário");
-         txtSaldo.setText("299.99");
          txtSaldo.setForeground(Color.BLACK);
          txtSaldo.setFont(f2);
          txtSaldo.setBackground(new Color(200, 255, 83,0));

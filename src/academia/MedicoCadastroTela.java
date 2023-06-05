@@ -110,7 +110,7 @@ public class MedicoCadastroTela {
 		   			File arquivoExiste = new File(System.getProperty("user.dir")+"/src/medicos/"+usernameField.getText()+".txt");
 		    			   if(!arquivoExiste.exists()) {
 		    					salvarUsuario();
-				    			Principal c1 = new Principal();
+				    			PrincipalMed c1 = new PrincipalMed();
 				    			c1.setVisible(true);
 				    			frame.dispose();
 				    		   
